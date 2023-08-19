@@ -1,0 +1,43 @@
+@import '../../styles/abstract/constants.scss';
+@import '../../styles/abstract/mixins.scss';
+@import '../../styles/abstract/placeholders.scss';
+
+.header {
+  padding: 1.8rem 0;
+  width: 100%;
+  position: relative;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__menu {
+  margin-left: auto;
+  width: 59.1%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @extend %transition;
+
+  @include media-small {
+    width: 52rem;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    z-index: 10;
+    background-color: $color-dark-l;
+  }
+
+  @include media-mobile {
+    width: 100%;
+  }
+  &_open {
+    right: 0;
+  }
+}
