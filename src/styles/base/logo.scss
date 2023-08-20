@@ -6,7 +6,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  @extend %transition;
+  @extend %transition-opacity;
 
   &:hover {
     opacity: 0.8;

@@ -4,7 +4,7 @@
   position: relative;
   width: 2.8rem;
   height: 2.25rem;
-  @extend %transition;
+  @extend %transition-all;
 
   @include media-small {
     display: inline-block;
@@ -50,5 +50,5 @@
   left: 0;
   @include burger-line;
   transform: scale(1);
-  @extend %transition;
+  @extend %transition-all;
 }

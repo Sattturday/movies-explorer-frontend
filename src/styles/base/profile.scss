@@ -12,4 +12,8 @@
   @include media-small {
     margin-bottom: 9rem;
   }
+
+  @include media-mobile {
+    margin-bottom: 4.6rem;
+  }
 }

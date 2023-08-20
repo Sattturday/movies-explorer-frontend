@@ -23,11 +23,14 @@
 
   @include media-mobile {
     padding-top: 1rem;
+    width: 100%;
     gap: 1.6rem;
   }
 }
 
 .nav-menu__item {
+  height: 2.9rem;
+
   &_main {
     display: none;
 

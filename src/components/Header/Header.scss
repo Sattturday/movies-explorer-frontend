@@ -20,7 +20,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @extend %transition;
+  @extend %transition-all;
 
   @include media-small {
     width: 52rem;
