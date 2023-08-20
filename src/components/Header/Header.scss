@@ -41,3 +41,37 @@
     right: 0;
   }
 }
+
+.header__info {
+  width: 18.3rem;
+  display: flex;
+  justify-content: space-between;
+
+  @include media-mobile {
+    width: 13.2rem;
+  }
+}
+
+.header__link {
+  height: 3.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include button-text-s;
+  @include link($color-light-xl);
+  border-radius: 0.3rem;
+
+  &_button {
+    width: 7.6rem;
+    @include link($color-dark-xl);
+    background-color: $color-green;
+
+    @include media-mobile {
+      width: 5.4rem;
+    }
+  }
+
+  @include media-mobile {
+    height: 2.6rem;
+  }
+}

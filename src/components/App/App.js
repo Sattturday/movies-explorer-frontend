@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+
+import { AppContext } from '../../contexts/AppContext';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -9,9 +12,10 @@ import NotFound from '../NotFound/NotFound';
 import Header from '../Header/Header';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
 
   return (
-    <>
+    <AppContext.Provider value={loggedIn}>
       <Header />
       <Routes>
         {/* <Route path="/" element={<Main />} />
@@ -22,7 +26,7 @@ function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="*" element={<NotFound />} /> */}
       </Routes>
-    </>
+    </AppContext.Provider>
   );
 }
 
