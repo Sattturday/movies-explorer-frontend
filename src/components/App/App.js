@@ -2,24 +2,28 @@ import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { AppContext } from '../../contexts/AppContext';
-import Main from '../Main/Main';
-import Movies from '../Movies/Movies';
-import SavedMovies from '../SavedMovies/SavedMovies';
-import Profile from '../Profile/Profile';
-import Login from '../Login/Login';
-import Register from '../Register/Register';
+import Main from '../landing/Main/Main';
+import Movies from '../films/Movies/Movies';
+import SavedMovies from '../films/SavedMovies/SavedMovies';
+import Profile from '../user/Profile/Profile';
+import Login from '../user/Login/Login';
+import Register from '../user/Register/Register';
 import NotFound from '../NotFound/NotFound';
-import Header from '../Header/Header';
+import Header from '../common/Header/Header';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  function handleBurgerClick() {
+    setMenuOpen(!menuOpen);
+  }
 
   return (
-    <AppContext.Provider value={loggedIn}>
-      <Header />
+    <AppContext.Provider value={{loggedIn, menuOpen}}>
       <Routes>
-        {/* <Route path="/" element={<Main />} />
-        <Route path="/movies" element={<Movies />} />
+        <Route path="/" element={<Main onBurgerClick={handleBurgerClick} />} />
+        {/* <Route path="/movies" element={<Movies />} />
         <Route path="/saved-movies" element={<SavedMovies />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/signin" element={<Login />} />

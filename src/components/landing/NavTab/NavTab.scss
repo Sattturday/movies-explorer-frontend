@@ -1,0 +1,44 @@
+@import '../../../styles/abstract/constants.scss';
+@import '../../../styles/abstract/mixins.scss';
+@import '../../../styles/abstract/placeholders.scss';
+
+.nav-tab {
+  padding: 15rem 0 3rem;
+  min-width: 30.8rem;
+
+  @include media-small {
+    padding: 31.4rem 0 3rem;
+  }
+
+  @include media-mobile {
+    padding: 21.2rem 0 1.7rem;
+    min-width: 25.8rem;
+  }
+}
+
+.nav-tab__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.nav-tab__link {
+  width: 9.6rem;
+  height: 3.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include button-text-s;
+  text-decoration: none;
+  color: $color-light-xl;
+  background-color: $color-dark-s;
+  border-radius: 1rem;
+  @include button;
+
+  @include media-mobile {
+    width: 8.2rem;
+    height: 2.6rem;
+  }
+}

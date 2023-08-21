@@ -4,10 +4,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  @include link($color-light-xl);
   @include button-text-l;
+  color: $color-light-xl;
+  text-decoration: none;
   background-color: $color-dark-xs;
   border-radius: 2rem;
+  @include button;
 
   @include media-small {
     margin-bottom: 9rem;

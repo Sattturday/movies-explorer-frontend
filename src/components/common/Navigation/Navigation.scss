@@ -1,20 +1,8 @@
-@import '../../styles/abstract/constants.scss';
-@import '../../styles/abstract/mixins.scss';
-@import '../../styles/abstract/placeholders.scss';
+@import '../../../styles/abstract/constants.scss';
+@import '../../../styles/abstract/mixins.scss';
+@import '../../../styles/abstract/placeholders.scss';
 
-.header {
-  padding: 1.8rem 0;
-  width: 100%;
-  position: relative;
-}
-
-.header__container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header__menu {
+.navigation__menu {
   margin-left: auto;
   width: 59.1%;
   display: flex;
@@ -42,7 +30,7 @@
   }
 }
 
-.header__info {
+.navigation__info {
   width: 18.3rem;
   display: flex;
   justify-content: space-between;
@@ -52,7 +40,7 @@
   }
 }
 
-.header__link {
+.navigation__link {
   height: 3.2rem;
   display: flex;
   justify-content: center;

@@ -26,6 +26,14 @@
   }
 }
 
+@mixin button {
+  @extend %transition-opacity;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 @mixin button-text-l {
   font-size: 1.4rem;
   font-weight: 500;
