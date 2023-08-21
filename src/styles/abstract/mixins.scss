@@ -16,6 +16,12 @@
   }
 }
 
+@mixin list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 @mixin link($color) {
   text-decoration: none;
   color: $color;
@@ -58,6 +64,18 @@
 
   @include media-small {
     font-size: 1.8rem;
+  }
+}
+
+@mixin footer-text($color) {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: normal;
+  color: $color;
+
+  @include media-mobile {
+    font-size: 1.2rem;
   }
 }
 
