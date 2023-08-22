@@ -8,8 +8,9 @@ function Navigation({onBurgerClick}) {
   const app = useContext(AppContext);
 
   return (
+
     app.loggedIn ? (
-      <>
+      <div className="navigation">
         <span
           className={`burger ${(app.menuOpen && ' burger_active') || ''}`}
           onClick={onBurgerClick}
@@ -56,13 +57,17 @@ function Navigation({onBurgerClick}) {
 
           <Link className="profile" to="/profile">Аккаунт</Link>
         </div>
-      </>
-    ) : (
-      <div className="navigation__info">
-        <Link className="navigation__link" to="/signup">Регистрация</Link>
-        <Link className="navigation__link navigation__link_button" to="/signin">Войти</Link>
       </div>
+    ) : (
+      <div className="navigation navigation_out">
+        <div className="navigation__info">
+          <Link className="navigation__link" to="/signup">Регистрация</Link>
+          <Link className="navigation__link navigation__link_button" to="/signin">Войти</Link>
+        </div>
+      </div>
+
     )
+
   );
 }
 

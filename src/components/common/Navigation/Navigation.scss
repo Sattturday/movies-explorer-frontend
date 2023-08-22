@@ -2,9 +2,25 @@
 @import '../../../styles/abstract/mixins.scss';
 @import '../../../styles/abstract/placeholders.scss';
 
-.navigation__menu {
-  margin-left: auto;
+.navigation {
   width: 59.1%;
+
+  @include media-small {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  @include media-mobile {
+    width: 100%;
+  }
+
+  &_out {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.navigation__menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
