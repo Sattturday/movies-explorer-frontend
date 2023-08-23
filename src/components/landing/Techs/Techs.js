@@ -2,7 +2,7 @@ import './Techs.scss';
 
 function Techs() {
   return (
-    <section className="techs">
+    <section className="techs" id="techs">
       <div className="wrapper wrapper_main">
         <h2 className="techs__title">Технологии</h2>
         <p className="techs__subtitle">7 технологий</p>

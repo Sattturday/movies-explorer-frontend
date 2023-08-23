@@ -6,13 +6,13 @@ function NavTab() {
     <nav className="nav-tab">
       <ul className="nav-tab__list">
         <li>
-          <Link className="nav-tab__link" to="">О проекте</Link>
+          <a className="nav-tab__link" href="#about-project">О проекте</a>
         </li>
         <li>
-          <Link className="nav-tab__link" to="">Технологии</Link>
+          <a className="nav-tab__link" href="#techs">Технологии</a>
         </li>
         <li>
-          <Link className="nav-tab__link" to="">Студент</Link>
+          <a className="nav-tab__link" href="#about-me">Студент</a>
         </li>
       </ul>
     </nav>
