@@ -92,6 +92,7 @@
 }
 
 .about-me__link {
+  max-width: 5rem;
   @include link($color-light-xl);
   @include button-text-l;
   padding-top: 10rem;

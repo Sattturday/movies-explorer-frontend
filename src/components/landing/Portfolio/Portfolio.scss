@@ -1,0 +1,83 @@
+@import '../../../styles/abstract/constants.scss';
+@import '../../../styles/abstract/mixins.scss';
+@import '../../../styles/abstract/placeholders.scss';
+
+.portfolio {
+  @include padding(10rem);
+}
+
+.portfolio__title {
+  margin: 0;
+  color: $color-light-m;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1.11;
+
+  @include media-mobile {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.42;
+  }
+}
+
+.portfolio__nav {
+  padding: 3.2rem 0 12.4rem;
+
+  @include media-small {
+    padding: 2.9rem 0 8.9rem;
+  }
+
+  @include media-small {
+    padding: 2rem 0 7rem;
+  }
+}
+
+.portfolio__list {
+  @include list;
+}
+
+.portfolio__item {
+  padding-top: 1.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  &_underline:after {
+    content: '';
+    width: 100%;
+    border-bottom: 1px $color-light-l solid;
+  }
+}
+
+.portfolio__link {
+  @include link($color-light-xl);
+  background-image: url(../../../images/icon/arrow.svg);
+  //  background-position: right;
+  background-position: 99.5% center;
+  background-repeat: no-repeat;
+  background-size: 2.2rem;
+
+  @include media-mobile {
+    background-size: 1.3rem;
+  }
+}
+
+.portfolio__item-name {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: 1.66;
+  letter-spacing: -1.2px;
+
+  @include media-small {
+    font-size: 2.8rem;
+    line-height: 1.78;
+    letter-spacing: -1.12px;
+  }
+
+  @include media-mobile {
+    font-size: 1.8rem;
+    line-height: 1.55;
+    letter-spacing: -0.72px;
+  }
+}

@@ -12,7 +12,7 @@ import NotFound from '../NotFound/NotFound';
 import Header from '../common/Header/Header';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
   function handleBurgerClick() {
