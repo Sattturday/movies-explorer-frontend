@@ -4,6 +4,7 @@ import Footer from '../../common/Footer/Footer';
 import Header from '../../common/Header/Header';
 import AboutProject from '../AboutProject/AboutProject';
 import Techs from '../Techs/Techs';
+import AboutMe from '../AboutMe/AboutMe';
 
 function Main({onBurgerClick}) {
   return (
@@ -13,6 +14,7 @@ function Main({onBurgerClick}) {
         <Promo />
         <AboutProject />
         <Techs />
+        <AboutMe />
       </main>
       <Footer />
     </>

@@ -22,6 +22,10 @@
     &_promo {
       padding: 0 2rem;
     }
+
+    &_student {
+      padding: 0 5rem;
+    }
   }
 
   @include media-mobile {
