@@ -2,16 +2,8 @@
 @import '../../../styles/abstract/mixins.scss';
 
 .techs {
-  padding-top: 10rem;
   background-color: $color-dark-m;
-
-  @include media-small {
-    padding-top: 9rem;
-  }
-
-  @include media-mobile {
-    padding-top: 7.1rem;
-  }
+  @include padding(10rem);
 }
 
 .techs__title {
@@ -67,7 +59,7 @@
 .techs__list {
   @include list;
   margin: auto;
-  padding: 10rem 0;
+  padding: 10.1rem 0;
   max-width: 69rem;
   display: flex;
   flex-wrap: wrap;
@@ -80,7 +72,7 @@
   }
 
   @include media-mobile {
-    padding: 5rem 0 7rem;
+    padding: 5rem 0 7.1rem;
     max-width: 17.8rem;
     justify-content: flex-start;
   }

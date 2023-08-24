@@ -2,15 +2,7 @@
 @import '../../../styles/abstract/mixins.scss';
 
 .about-project {
-  padding-top: 11rem;
-
-  @include media-small {
-    padding-top: 9rem;
-  }
-
-  @include media-mobile {
-    padding-top: 7.2rem;
-  }
+  @include padding(11rem);
 }
 
 .about-project__title {
@@ -97,7 +89,7 @@
   @include media-mobile {
     padding: 5.9rem 0 6.9rem;
     grid-template-columns: 35.2% 64.8%;
-    grid-template-rows: 3.5rem 2.4rem;
+    grid-template-rows: 3.5rem 2.5rem;
   }
 }
 

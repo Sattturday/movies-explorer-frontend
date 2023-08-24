@@ -17,6 +17,19 @@
   }
 }
 
+// padding-section
+@mixin padding($padding-start) {
+  padding-top: $padding-start;
+
+  @include media-small {
+    padding-top: 9rem;
+  }
+
+  @include media-mobile {
+    padding-top: 7rem;
+  }
+}
+
 // списки
 @mixin list {
   margin: 0;
