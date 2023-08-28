@@ -152,3 +152,12 @@
     height: 2.5px;
   }
 }
+
+// disabled
+@mixin disabled {
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

@@ -9,7 +9,7 @@ function AboutMe() {
         <div className="about-me__container">
           <div className="about-me__column">
             <p className="about-me__subtitle">Алла Магина</p>
-            <p className="about-me__description about-me__description_about">Фронтенд-разработчик, 40 лет</p>
+            <p className="about-me__description about-me__description_about">Фронтенд-разработчик</p>
             <p className="about-me__description">Я родилась и живу в Чебоксарах.
             Занималась 3D-визуализацией интерьеров.
             Сейчас я вижу свое будущее в фронтенд-разработке. Она позволяет мне сочетать
