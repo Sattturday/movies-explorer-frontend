@@ -48,7 +48,12 @@
   }
 
   &:-webkit-autofill {
-    transition: all 5000s ease-in-out;
+    -webkit-box-shadow: 0 0 0 30px $color-grey inset;
+  }
+
+  &:-webkit-autofill {
+    -webkit-text-fill-color: $color-light-xl;
+    background-color: $color-grey;
   }
 }
 
