@@ -36,10 +36,10 @@ function App() {
         <Route path="/" element={<Main onBurgerClick={handleBurgerClick} />} />
         {/* <Route path="/movies" element={<Movies />} />
         <Route path="/saved-movies" element={<SavedMovies />} />
-        <Route path="/profile" element={<Profile />} />
-      <Route path="*" element={<NotFound />} /> */}
+        <Route path="/profile" element={<Profile />} /> */}
         <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
         <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AppContext.Provider>
   );
