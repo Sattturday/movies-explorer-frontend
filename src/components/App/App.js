@@ -26,6 +26,10 @@ function App() {
     navigate('/');
   }
 
+  function handleRegister() {
+    navigate('/signin');
+  }
+
   return (
     <AppContext.Provider value={{loggedIn, menuOpen}}>
       <Routes>
@@ -33,9 +37,9 @@ function App() {
         {/* <Route path="/movies" element={<Movies />} />
         <Route path="/saved-movies" element={<SavedMovies />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/signup" element={<Register />} />
       <Route path="*" element={<NotFound />} /> */}
         <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+        <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
       </Routes>
     </AppContext.Provider>
   );

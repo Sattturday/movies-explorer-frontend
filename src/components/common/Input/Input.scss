@@ -60,7 +60,7 @@
 .input__error {
   min-height: 2rem;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   color: $color-red;
   font-size: 1rem;
   font-weight: 400;

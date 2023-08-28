@@ -6,7 +6,6 @@ import { useFormAndValidation } from '../../../hooks/useFormAndValidation';
 import Form from '../../common/Form/Form';
 import Input from '../../common/Input/Input';
 import './Login.scss';
-import Main from '../../landing/Main/Main';
 
 function Login({ handleLogin }) {
   const { values, handleChange, errors, isValid, resetForm } =
