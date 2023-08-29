@@ -14,6 +14,8 @@ import Header from '../common/Header/Header';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const userName = 'Виталий';
 
   const navigate = useNavigate();
 
@@ -30,13 +32,31 @@ function App() {
     navigate('/signin');
   }
 
+  function handleUpdateUser() {
+    setIsEdit(false);
+  }
+
+  function handleEditProfile() {
+    setIsEdit(true);
+  }
+
+  function handleLogout() {
+    setLoggedIn(false);
+  }
+
   return (
-    <AppContext.Provider value={{loggedIn, menuOpen}}>
+    <AppContext.Provider value={{loggedIn, menuOpen, isEdit, userName}}>
       <Routes>
         <Route path="/" element={<Main onBurgerClick={handleBurgerClick} />} />
         {/* <Route path="/movies" element={<Movies />} />
-        <Route path="/saved-movies" element={<SavedMovies />} />
-        <Route path="/profile" element={<Profile />} /> */}
+        <Route path="/saved-movies" element={<SavedMovies />} />*/}
+        <Route path="/profile"
+          element={<Profile
+            onUpdateUser={handleUpdateUser}
+            onEditProfile={handleEditProfile}
+            onBurgerClick={handleBurgerClick}
+            onLogout={handleLogout} />}
+        />
         <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
         <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
         <Route path="*" element={<NotFound />} />

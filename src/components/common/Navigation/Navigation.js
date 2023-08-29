@@ -28,8 +28,9 @@ function Navigation({onBurgerClick}) {
                   className={({isActive}) =>
                     `nav-menu__link ${isActive ? 'nav-menu__link_active' : ''}`
                   }
+                  onClick={app.menuOpen && onBurgerClick}
                 >
-              Главная
+                  Главная
                 </NavLink>
               </li>
               <li className="nav-menu__item">
@@ -38,8 +39,9 @@ function Navigation({onBurgerClick}) {
                   className={({isActive}) =>
                     `nav-menu__link ${isActive ? 'nav-menu__link_active' : ''}`
                   }
+                  onClick={app.menuOpen && onBurgerClick}
                 >
-              Фильмы
+                  Фильмы
                 </NavLink>
               </li>
               <li className="nav-menu__item">
@@ -48,14 +50,19 @@ function Navigation({onBurgerClick}) {
                     `nav-menu__link ${isActive ? 'nav-menu__link_active' : ''}`
                   }
                   to="/saved-movies"
-                >
-              Сохранённые фильмы
+                  onClick={app.menuOpen && onBurgerClick}>
+                  Сохранённые фильмы
                 </NavLink>
               </li>
             </ul>
           </nav>
 
-          <Link className="profile" to="/profile">Аккаунт</Link>
+          <Link
+            className="account"
+            to="/profile"
+            onClick={app.menuOpen && onBurgerClick}>
+              Аккаунт
+          </Link>
         </div>
       </div>
     ) : (

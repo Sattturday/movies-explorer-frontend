@@ -53,7 +53,7 @@
 }
 
 .navigation__link {
-  height: 3.2rem;
+  min-height: 3.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,6 +72,6 @@
   }
 
   @include media-mobile {
-    height: 2.6rem;
+    min-height: 2.6rem;
   }
 }

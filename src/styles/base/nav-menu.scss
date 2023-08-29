@@ -10,7 +10,7 @@
 
   @include media-small {
     width: 332px;
-    height: 39rem;
+    min-height: 39rem;
     padding-top: 2.8rem;
     background-color: $color-dark-l;
     flex-direction: column;
@@ -27,7 +27,7 @@
 }
 
 .nav-menu__item {
-  height: 2.9rem;
+  min-height: 2.9rem;
 
   &_main {
     display: none;
@@ -39,14 +39,14 @@
 }
 
 .nav-menu__link {
-  height: 2.6rem;
+  min-height: 2.6rem;
   display: flex;
   align-items: center;
   @include link($color-light-xl);
   @include menu-link;
 
   @include media-mobile {
-    height: 2.9rem;
+    min-height: 2.9rem;
   }
 
   @include media-small {

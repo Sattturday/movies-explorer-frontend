@@ -79,7 +79,7 @@
   display: grid;
   grid-template-columns: 20% 80%;
   grid-template-rows: 3.6rem 3.1rem;
-  align-items: end;
+  align-items: flex-end;
 
   @include media-small {
     padding: 9.4rem 0 9rem;
@@ -94,7 +94,7 @@
 }
 
 .about-project__timing-back {
-  height: 100%;
+  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,7 +103,7 @@
 }
 
 .about-project__timing-front {
-  height: 100%;
+  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

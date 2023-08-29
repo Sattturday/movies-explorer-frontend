@@ -80,7 +80,7 @@
 
 .techs__item {
   width: 9rem;
-  height: 6rem;
+  min-height: 6rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,7 +89,7 @@
 
   @include media-small {
     width: 8.4rem;
-    height: 5.7rem;
+    min-height: 5.7rem;
   }
 }
 

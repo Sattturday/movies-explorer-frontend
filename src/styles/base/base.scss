@@ -6,7 +6,7 @@ html {
 #root {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   main {
     flex: 1 0 auto;
   }
@@ -15,7 +15,7 @@ html {
   }
 }
 
-body {
+.page {
   margin: auto;
   @extend %font-prim;
   font-style: normal;
@@ -27,4 +27,8 @@ body {
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   background-color: $color-dark-l;
+
+  &_lock {
+    overflow: hidden;
+  }
 }

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import './Header.scss';
@@ -7,6 +7,14 @@ import { AppContext } from '../../../contexts/AppContext';
 
 function Header({onBurgerClick}) {
   const app = useContext(AppContext);
+
+  useEffect(() => {
+    if (app.menuOpen) {
+      document.body.classList.add('page_lock');
+    } else {
+      document.body.classList.remove('page_lock');
+    }
+  }, [app.menuOpen]);
 
   return (
     <header className="header">
