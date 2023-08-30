@@ -16,6 +16,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const userName = 'Виталий';
+  const userMail = 'pochta@yandex.ru';
 
   const navigate = useNavigate();
 
@@ -45,7 +46,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{loggedIn, menuOpen, isEdit, userName}}>
+    <AppContext.Provider value={{loggedIn, menuOpen, isEdit, userName, userMail}}>
       <Routes>
         <Route path="/" element={<Main onBurgerClick={handleBurgerClick} />} />
         {/* <Route path="/movies" element={<Movies />} />

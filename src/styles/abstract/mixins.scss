@@ -126,6 +126,13 @@
   }
 }
 
+@mixin profile-text($font-weight) {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: $font-weight;
+  line-height: normal;
+}
+
 @mixin footer-text($color) {
   margin: 0;
   font-size: 1.3rem;
