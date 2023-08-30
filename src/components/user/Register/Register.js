@@ -26,7 +26,7 @@ function Login({ handleLogin }) {
     <main>
       <section className="login">
         <Link className="logo" to="/" />
-        <p className="login__title">Добро пожаловать!</p>
+        <h1 className="login__title">Добро пожаловать!</h1>
         <Form
           name="register"
           buttonText="Зарегистрироваться"

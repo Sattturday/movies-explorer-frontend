@@ -3,7 +3,7 @@ import './Input.scss';
 const Input = ({ name, title, errors, values, handleChange, ...props }) => {
   return (
     <label className="input">
-      <p className="input__name">{title}</p>
+      <span className="input__name">{title}</span>
       <input
         className={`input__field${(errors[name] && ' input__field_type_error') || ''}`}
         name={name}

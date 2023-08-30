@@ -13,14 +13,14 @@ function Footer() {
                 <a
                   className="footer__link"
                   href="https://practicum.yandex.ru/"
-                  target="_blanc"
+                  target="_blank"
                   rel="noreferrer">Яндекс.Практикум</a>
               </li>
               <li className="footer__item">
                 <a
                   className="footer__link"
                   href="https://github.com/Sattturday"
-                  target="_blanc"
+                  target="_blank"
                   rel="noreferrer">Github</a>
               </li>
             </ul>

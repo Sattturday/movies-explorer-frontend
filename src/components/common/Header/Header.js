@@ -15,7 +15,7 @@ function Header({onBurgerClick}) {
       document.body.classList.remove('page_lock');
     }
   }, [app.menuOpen]);
-  console.log(app);
+
   return (
     <header className="header">
       <div className={`background ${(app.menuOpen && ' background_active') || ''}`}
