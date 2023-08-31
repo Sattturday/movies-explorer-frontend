@@ -26,6 +26,7 @@ html {
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
   background-color: $color-dark-l;
 
   &_lock {

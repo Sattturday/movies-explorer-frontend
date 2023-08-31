@@ -3,7 +3,12 @@ import './FilterCheckbox.scss';
 function FilterCheckbox() {
   return (
     <label className="filter">
-      <input type="checkbox" className="filter__input" value="off" />
+      <input
+        className="filter__input"
+        type="checkbox"
+        form="search"
+        value="off"
+      />
       <span className="filter__input-new"></span>
       <span className="filter__title">Короткометражки</span>
     </label>

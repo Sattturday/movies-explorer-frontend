@@ -10,6 +10,7 @@ import Login from '../user/Login/Login';
 import Register from '../user/Register/Register';
 import NotFound from '../NotFound/NotFound';
 import Header from '../common/Header/Header';
+import movies from '../../utils/data';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -46,7 +47,7 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{loggedIn, menuOpen, isEdit, userName, userMail}}>
+    <AppContext.Provider value={{loggedIn, menuOpen, isEdit, userName, userMail, movies}}>
       <Routes>
         <Route path="/" element={<Main onBurgerClick={handleBurgerClick} />} />
         <Route path="/movies" element={<Movies />} />
