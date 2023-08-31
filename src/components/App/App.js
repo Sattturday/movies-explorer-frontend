@@ -49,8 +49,8 @@ function App() {
     <AppContext.Provider value={{loggedIn, menuOpen, isEdit, userName, userMail}}>
       <Routes>
         <Route path="/" element={<Main onBurgerClick={handleBurgerClick} />} />
-        {/* <Route path="/movies" element={<Movies />} />
-        <Route path="/saved-movies" element={<SavedMovies />} />*/}
+        <Route path="/movies" element={<Movies />} />
+        {/*  <Route path="/saved-movies" element={<SavedMovies />} />*/}
         <Route path="/profile"
           element={<Profile
             onUpdateUser={handleUpdateUser}

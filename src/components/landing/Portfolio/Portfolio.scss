@@ -52,7 +52,6 @@
 .portfolio__link {
   @include link($color-light-xl);
   background-image: url(../../../images/icon/arrow.svg);
-  //  background-position: right;
   background-position: 99.5% center;
   background-repeat: no-repeat;
   background-size: 2.2rem;
