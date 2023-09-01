@@ -9,7 +9,8 @@
   flex-direction: column;
 
   &:hover {
-    .card__button_type_saved {
+    .card__button_type_saved,
+    .card__button_type_delete {
       opacity: 1;
       @include button;
     }
@@ -42,6 +43,13 @@
     background-image: url(../../../images/icon/save.svg);
     background-size: cover;
     background-color: transparent;
+    @include button;
+  }
+
+  &_type_delete {
+    background-image: url(../../../images/icon/delete.svg);
+    opacity: 0;
+    @extend %transition-all;
   }
 }
 

@@ -1,17 +1,19 @@
 import './MoviesCard.scss';
 
-function MoviesCard({ card }) {
+function MoviesCard({ card, isSaved }) {
   return (
     <li className="card">
 
-      {!card.isSaved ? (
+      {!card.saved ? (
         <button
           className="card__button card__button_type_saved"
           type="button"
         >Сохранить</button>
       ) : (
         <button
-          className="card__button card__button_type_unsaved"
+          className={`card__button card__button_type_unsaved${
+            (isSaved && ' card__button_type_delete') || ''
+          }`}
           type="button"
         ></button>
       )}
