@@ -1,4 +1,3 @@
-import './Main.scss';
 import Footer from '../../common/Footer/Footer';
 import Header from '../../common/Header/Header';
 import Promo from '../Promo/Promo';

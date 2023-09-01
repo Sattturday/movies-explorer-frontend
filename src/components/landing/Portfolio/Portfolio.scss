@@ -37,16 +37,10 @@
 }
 
 .portfolio__item {
-  padding-top: 1.95rem;
+  padding-top: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-
-  &_underline:after {
-    content: '';
-    width: 100%;
-    border-bottom: 1px $color-light-l solid;
-  }
+  gap: 1.9rem;
 }
 
 .portfolio__link {

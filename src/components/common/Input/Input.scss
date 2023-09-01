@@ -14,7 +14,7 @@
   padding: 1.5rem;
   width: 100%;
   box-sizing: border-box;
-  background-color: $color-grey;
+  background-color: $color-light-xs;
   border: none;
   border-radius: 8px;
   color: $color-light-xl;
@@ -52,7 +52,7 @@
   }
 
   &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px $color-grey inset;
+    -webkit-box-shadow: 0 0 0 30px $color-light-xs inset;
   }
 
   &:-webkit-autofill {

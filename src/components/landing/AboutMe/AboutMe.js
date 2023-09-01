@@ -16,10 +16,16 @@ function AboutMe() {
             творческий дизайн с логикой кодирования. Каждый день в этой области - это новый вызов и
             возможность учиться чему-то новому, что меня вдохновляет.
             </p>
-            <a className="about-me__link" href="https://github.com/Sattturday"
-              target="_blank" rel="noreferrer">Github</a>
+            <a
+              className="about-me__link"
+              href="https://github.com/Sattturday"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Github
+            </a>
           </div>
-          <img src={photo} alt="Портретное фото студента" className="about-me__image" />
+          <img className="about-me__image" src={photo} alt="Портретное фото студента" />
         </div>
       </div>
     </section>

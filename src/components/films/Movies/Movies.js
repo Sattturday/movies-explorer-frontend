@@ -1,8 +1,7 @@
-import './Movies.scss';
-import Header from '../../common/Header/Header';
-import Footer from '../../common/Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Header from '../../common/Header/Header';
+import Footer from '../../common/Footer/Footer';
 
 function Movies({onBurgerClick}) {
   return (

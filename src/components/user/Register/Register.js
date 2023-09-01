@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 
+import '../Login/Login.scss';
+import Input from '../../common/Input/Input';
+import Form from '../../common/Form/Form';
 import { AppContext } from '../../../contexts/AppContext';
 import { useFormAndValidation } from '../../../hooks/useFormAndValidation';
-import Form from '../../common/Form/Form';
-import Input from '../../common/Input/Input';
-import '../Login/Login.scss';
 
 function Login({ handleLogin }) {
   const { values, handleChange, errors, isValid, resetForm } =

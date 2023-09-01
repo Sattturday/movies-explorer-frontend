@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
+import movies from '../../utils/data';
 import { AppContext } from '../../contexts/AppContext';
 import Main from '../landing/Main/Main';
 import Movies from '../films/Movies/Movies';
@@ -9,8 +10,6 @@ import Profile from '../user/Profile/Profile';
 import Login from '../user/Login/Login';
 import Register from '../user/Register/Register';
 import NotFound from '../NotFound/NotFound';
-import Header from '../common/Header/Header';
-import movies from '../../utils/data';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);

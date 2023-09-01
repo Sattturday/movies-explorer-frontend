@@ -34,11 +34,12 @@
     background-color: $color-dark-l;
   }
 
-  @include media-mobile {
-    width: 100%;
-  }
   &_open {
     right: 0;
+  }
+
+  @include media-mobile {
+    width: 100%;
   }
 }
 

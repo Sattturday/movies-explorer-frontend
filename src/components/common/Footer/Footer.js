@@ -5,6 +5,7 @@ function Footer() {
     <footer className="footer">
       <div className="wrapper">
         <p className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</p>
+        <span className="underline"></span>
         <div className="footer__info">
           <p className="footer__copyright">&copy; 2023</p>
           <nav className="footer__links">

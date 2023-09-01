@@ -17,9 +17,7 @@ function Navigation({onBurgerClick}) {
         >
           <span className="burger__line"></span>
         </span>
-
         <div className={`navigation__menu ${(app.menuOpen && ' navigation__menu_open') || ''}`}>
-
           <nav className="nav-menu">
             <ul className="nav-menu__list">
               <li className="nav-menu__item nav-menu__item_main">
@@ -56,7 +54,6 @@ function Navigation({onBurgerClick}) {
               </li>
             </ul>
           </nav>
-
           <Link
             className="account"
             to="/profile"
@@ -72,9 +69,7 @@ function Navigation({onBurgerClick}) {
           <Link className="navigation__link navigation__link_button" to="/signin">Войти</Link>
         </div>
       </div>
-
     )
-
   );
 }
 

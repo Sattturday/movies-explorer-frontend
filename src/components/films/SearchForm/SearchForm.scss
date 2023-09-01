@@ -21,7 +21,7 @@
 .search__input {
   padding: 1.6rem 2rem;
   width: 91.75%;
-  background-color: $color-grey;
+  background-color: $color-light-xs;
   border-radius: 0.8rem;
   border: none;
   color: $color-light-xl;
@@ -55,7 +55,7 @@
   }
 
   &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px $color-grey inset;
+    -webkit-box-shadow: 0 0 0 30px $color-light-xs inset;
   }
 
   &:-webkit-autofill {

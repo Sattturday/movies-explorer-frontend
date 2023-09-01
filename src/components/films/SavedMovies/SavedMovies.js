@@ -1,4 +1,3 @@
-import './SavedMovies.scss';
 import Header from '../../common/Header/Header';
 import Footer from '../../common/Footer/Footer';
 import SearchForm from '../SearchForm/SearchForm';
