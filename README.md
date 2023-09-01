@@ -6,9 +6,9 @@
 
 ### Примененные знания
 
-Sass
-React
-React Router Dom
+- Sass
+- React
+- React Router Dom
 
 ### Запуск приложения
 
