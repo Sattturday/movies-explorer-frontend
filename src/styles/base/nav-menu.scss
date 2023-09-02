@@ -45,6 +45,10 @@
   @include link($color-light-xl);
   @include menu-link;
 
+  &_active {
+    font-weight: 500;
+  }
+
   @include media-mobile {
     min-height: 2.9rem;
   }

@@ -24,7 +24,7 @@
 
   @include media-small {
     width: 52rem;
-    height: 100vh;
+    min-height: 100vh;
     flex-direction: column;
     justify-content: space-between;
     position: fixed;
@@ -44,6 +44,7 @@
 }
 
 .navigation__info {
+  @include list;
   width: 18.3rem;
   display: flex;
   justify-content: space-between;

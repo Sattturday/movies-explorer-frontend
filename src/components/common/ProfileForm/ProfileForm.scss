@@ -1,0 +1,107 @@
+@import '../../../styles/abstract/constants.scss';
+@import '../../../styles/abstract/placeholders.scss';
+@import '../../../styles/abstract/mixins.scss';
+
+.profile-form {
+  width: 100%;
+  min-height: 34.7rem;
+  display: grid;
+  grid-template-rows: min-content min-content 1fr;
+  align-items: end;
+
+  @include media-small {
+    min-height: 36.5rem;
+  }
+
+  @include media-mobile {
+    min-height: calc(100vh - 27.8rem);
+  }
+
+  > :first-child {
+    border-bottom: 1px solid $color-light-s;
+  }
+
+  .input {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .input__name {
+    @include profile-text(500);
+    padding-bottom: 0;
+    width: 30%;
+    color: $color-light-xl;
+    padding-top: 1.6rem;
+  }
+
+  .input__field {
+    @include profile-text(400);
+    margin-top: 1.6rem;
+    margin-left: auto;
+    padding: 0;
+    width: 70%;
+    text-align: end;
+    background-color: transparent;
+    border-radius: 0;
+
+    &:focus,
+    &:focus:-webkit-autofill {
+      background: linear-gradient(to right, $color-dark-l, $color-dark-s);
+    }
+
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 30px $color-dark-s inset;
+      @include profile-text(400);
+      margin-top: 1.6rem;
+      margin-left: auto;
+      padding: 0;
+      -webkit-text-fill-color: $color-light-xl;
+    }
+  }
+
+  .input__error {
+    margin-left: auto;
+    width: 70%;
+    min-height: 1.6rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    color: $color-red;
+    font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 1;
+    text-align: end;
+  }
+}
+
+.profile-form__submit {
+  width: 100%;
+  min-height: 4.5rem;
+  color: $color-light-xl;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: normal;
+  background-color: $color-blue;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  @include button;
+
+  &_disabled {
+    color: $color-light-l;
+    @include disabled;
+    background-color: transparent;
+    border: 1px solid $color-light-l;
+    opacity: 0.8;
+  }
+
+  @include media-small {
+    margin-bottom: 3rem;
+  }
+
+  @include media-mobile {
+    margin-bottom: 0;
+    font-size: 1.2rem;
+  }
+}

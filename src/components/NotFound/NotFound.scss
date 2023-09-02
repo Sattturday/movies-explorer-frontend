@@ -3,43 +3,65 @@
 @import '../../styles/abstract/mixins.scss';
 
 .not-found {
+  margin: auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.not-found__wrapper {
+  min-height: 58rem;
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr min-content;
+  align-items: center;
+
+  @include media-mobile {
+    display: block;
+    min-height: 100vh;
+  }
+}
+
+.not-found__content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.4rem;
+
+  @include media-mobile {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: 1rem;
+  }
 }
 
 .not-found__title {
   margin: 0;
-  padding-top: 24.5rem;
   font-size: 14rem;
   font-weight: 400;
   line-height: normal;
 
-  @include media-small {
-    padding-top: 40.7rem;
-  }
-
   @include media-mobile {
-    padding-top: 32.9rem;
     font-size: 8rem;
   }
 }
 
 .not-found__subtitle {
   margin: 0;
-  padding-top: 0.4rem;
   font-size: 1.6rem;
   font-weight: 400;
   line-height: normal;
+  text-align: center;
 
   @include media-mobile {
-    padding-top: 1rem;
     font-size: 1.2rem;
   }
 }
 
 .not-found__button {
-  margin-top: 18.3rem;
   @include link($color-blue);
   font-size: 1.4rem;
   font-weight: 400;
@@ -49,7 +71,10 @@
   cursor: pointer;
 
   @include media-mobile {
-    margin-top: 28.4rem;
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translate(-50%, 0);
     font-size: 1.2rem;
   }
 }

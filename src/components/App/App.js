@@ -3,12 +3,12 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import movies from '../../utils/data';
 import { AppContext } from '../../contexts/AppContext';
-import Main from '../landing/Main/Main';
+import Main from '../Main/Main';
 import Movies from '../films/Movies/Movies';
-import SavedMovies from '../films/SavedMovies/SavedMovies';
-import Profile from '../user/Profile/Profile';
-import Login from '../user/Login/Login';
-import Register from '../user/Register/Register';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 
 function App() {
@@ -30,7 +30,8 @@ function App() {
   }
 
   function handleRegister() {
-    navigate('/signin');
+    setLoggedIn(true);
+    navigate('/');
   }
 
   function handleUpdateUser() {
@@ -49,8 +50,8 @@ function App() {
     <AppContext.Provider value={{loggedIn, menuOpen, isEdit, userName, userMail, movies}}>
       <Routes>
         <Route path="/" element={<Main onBurgerClick={handleBurgerClick} />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/saved-movies" element={<SavedMovies />} />
+        <Route path="/movies" element={<Movies onBurgerClick={handleBurgerClick} />} />
+        <Route path="/saved-movies" element={<SavedMovies onBurgerClick={handleBurgerClick} />} />
         <Route path="/profile"
           element={<Profile
             onUpdateUser={handleUpdateUser}

@@ -1,0 +1,113 @@
+@import '../../styles/abstract/constants.scss';
+@import '../../styles/abstract/placeholders.scss';
+@import '../../styles/abstract/mixins.scss';
+
+.profile {
+  margin: auto;
+  max-width: 41rem;
+  min-height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  @include media-small {
+    min-height: calc(100vh - 78px);
+  }
+
+  @include media-mobile {
+    max-width: 26rem;
+  }
+}
+
+.profile__title {
+  @include user-title;
+  padding-bottom: 10.7rem;
+
+  @include media-small {
+    padding-bottom: 8rem;
+  }
+
+  @include media-mobile {
+    padding-top: 3rem;
+    padding-bottom: 6.5rem;
+  }
+}
+
+.profile__container {
+  width: 100%;
+  min-height: 34.7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include media-small {
+    min-height: 36.5rem;
+  }
+
+  @include media-mobile {
+    min-height: calc(100vh - 27.8rem);
+  }
+}
+
+.profile__info-list {
+  @include list;
+  width: 100%;
+}
+
+.profile__info-item {
+  display: flex;
+  padding: 1.6rem 0;
+  justify-content: space-between;
+}
+
+.profile__subtitle {
+  @include profile-text(500);
+}
+
+.profile__name,
+.profile__mail {
+  @include profile-text(400);
+}
+
+.profile__nav-list {
+  @include list;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+
+  @include media-small {
+    padding-bottom: 3rem;
+  }
+
+  @include media-mobile {
+    padding-bottom: 0;
+  }
+}
+
+.profile__button {
+  @include link($color-light-xl);
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: normal;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  @include media-mobile {
+    font-size: 1.2rem;
+  }
+}
+
+.profile__link {
+  @include link($color-red);
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: normal;
+
+  @include media-mobile {
+    font-size: 1.2rem;
+  }
+}
