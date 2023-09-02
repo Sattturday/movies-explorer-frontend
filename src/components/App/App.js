@@ -4,7 +4,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import movies from '../../utils/data';
 import { AppContext } from '../../contexts/AppContext';
 import Main from '../Main/Main';
-import Movies from '../films/Movies/Movies';
+import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
