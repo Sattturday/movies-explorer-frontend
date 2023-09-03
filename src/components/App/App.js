@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import movies from '../../utils/data';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { AppContext } from '../../contexts/AppContext';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -15,6 +16,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+
   const userName = 'Виталий';
   const userMail = 'pochta@yandex.ru';
 
@@ -47,22 +50,34 @@ function App() {
   }
 
   return (
-    <AppContext.Provider value={{loggedIn, menuOpen, isEdit, userName, userMail, movies}}>
-      <Routes>
-        <Route path="/" element={<Main onBurgerClick={handleBurgerClick} />} />
-        <Route path="/movies" element={<Movies onBurgerClick={handleBurgerClick} />} />
-        <Route path="/saved-movies" element={<SavedMovies onBurgerClick={handleBurgerClick} />} />
-        <Route path="/profile"
-          element={<Profile
-            onUpdateUser={handleUpdateUser}
-            onEditProfile={handleEditProfile}
-            onBurgerClick={handleBurgerClick}
-            onLogout={handleLogout} />}
-        />
-        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
-        <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+    <AppContext.Provider
+      value={{
+        loggedIn,
+        menuOpen,
+        isEdit,
+        userName,
+        userMail,
+        movies,
+      }}
+    >
+      <CurrentUserContext.Provider value={currentUser}>
+        <Routes>
+          <Route path="/" element={<Main onBurgerClick={handleBurgerClick} />} />
+          <Route path="/movies" element={<Movies onBurgerClick={handleBurgerClick} />} />
+          <Route path="/saved-movies" element={<SavedMovies onBurgerClick={handleBurgerClick} />} />
+          <Route path="/profile"
+            element={<Profile
+              onUpdateUser={handleUpdateUser}
+              onEditProfile={handleEditProfile}
+              onBurgerClick={handleBurgerClick}
+              onLogout={handleLogout} />}
+          />
+          <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+          <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </CurrentUserContext.Provider>
+
     </AppContext.Provider>
   );
 }
