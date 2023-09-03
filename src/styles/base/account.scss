@@ -1,0 +1,21 @@
+.account {
+  min-width: 10rem;
+  min-height: 3.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include button-text-l;
+  color: $color-light-xl;
+  text-decoration: none;
+  background-color: $color-dark-xs;
+  border-radius: 2rem;
+  @include button;
+
+  @include media-small {
+    margin-bottom: 9rem;
+  }
+
+  @include media-mobile {
+    margin-bottom: 4.6rem;
+  }
+}

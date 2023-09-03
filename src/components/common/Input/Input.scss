@@ -1,0 +1,72 @@
+@import '../../../styles/abstract/placeholders.scss';
+@import '../../../styles/abstract/constants.scss';
+
+.input__name {
+  margin: 0;
+  padding-bottom: 1rem;
+  color: $color-light-m;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.input__field {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: $color-light-xs;
+  border: none;
+  border-radius: 8px;
+  color: $color-light-xl;
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: normal;
+  outline: none;
+
+  &:focus {
+    background-color: $color-dark-m;
+  }
+
+  &_type_error {
+    color: $color-red;
+  }
+
+  &::-webkit-input-placeholder {
+    @extend %font-prim;
+    font-style: normal;
+  }
+
+  &::-moz-placeholder {
+    @extend %font-prim;
+    font-style: normal;
+  }
+
+  &::-ms-input-placeholder {
+    @extend %font-prim;
+    font-style: normal;
+  }
+
+  &::placeholder {
+    @extend %font-prim;
+    font-style: normal;
+  }
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px $color-light-xs inset;
+  }
+
+  &:-webkit-autofill {
+    -webkit-text-fill-color: $color-light-xl;
+  }
+}
+
+.input__error {
+  min-height: 2rem;
+  display: flex;
+  align-items: flex-end;
+  color: $color-red;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+}

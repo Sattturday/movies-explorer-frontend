@@ -1,0 +1,17 @@
+.background {
+  margin: 0;
+  padding: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  @extend %transition-all;
+  z-index: 9;
+
+  &_active {
+    visibility: visible;
+  }
+}

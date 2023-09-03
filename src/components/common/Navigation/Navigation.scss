@@ -1,0 +1,79 @@
+@import '../../../styles/abstract/constants.scss';
+@import '../../../styles/abstract/mixins.scss';
+@import '../../../styles/abstract/placeholders.scss';
+
+.navigation {
+  width: 59.1%;
+
+  @include media-small {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &_out {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.navigation__menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @extend %transition-all;
+
+  @include media-small {
+    width: 52rem;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    z-index: 10;
+    background-color: $color-dark-l;
+  }
+
+  &_open {
+    right: 0;
+  }
+
+  @include media-mobile {
+    width: 100%;
+  }
+}
+
+.navigation__info {
+  @include list;
+  width: 18.3rem;
+  display: flex;
+  justify-content: space-between;
+
+  @include media-mobile {
+    width: 13.2rem;
+  }
+}
+
+.navigation__link {
+  min-height: 3.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include button-text-s;
+  @include link($color-light-xl);
+  border-radius: 0.3rem;
+
+  &_button {
+    width: 7.6rem;
+    @include link($color-dark-xl);
+    background-color: $color-green;
+
+    @include media-mobile {
+      width: 5.4rem;
+    }
+  }
+
+  @include media-mobile {
+    min-height: 2.6rem;
+  }
+}

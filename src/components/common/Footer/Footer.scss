@@ -1,0 +1,64 @@
+@import '../../../styles/abstract/constants.scss';
+@import '../../../styles/abstract/mixins.scss';
+@import '../../../styles/abstract/placeholders.scss';
+
+.footer {
+  padding-top: 8rem;
+
+  &_saved {
+    padding-top: 24rem;
+
+    @include media-small {
+      padding-top: 17.2rem;
+    }
+
+    @include media-mobile {
+      padding-top: 15rem;
+    }
+  }
+}
+
+.footer__title {
+  padding-bottom: 2rem;
+  @include footer-text($color-light-m);
+  text-align: center;
+}
+
+.footer__info {
+  padding: 2rem 0;
+  display: flex;
+  justify-content: space-between;
+
+  @include media-mobile {
+    padding: 3rem 0 2rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+}
+
+.footer__copyright {
+  @include footer-text($color-light-xl);
+
+  @include media-mobile {
+    color: $color-light-m;
+    order: 2;
+  }
+}
+
+.footer__list {
+  @include list;
+  display: flex;
+  gap: 2rem;
+
+  @include media-mobile {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+}
+
+.footer__link {
+  @include link($color-light-xl);
+  @include footer-text($color-light-xl);
+}

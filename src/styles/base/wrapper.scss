@@ -1,0 +1,42 @@
+.wrapper {
+  max-width: $content-width;
+  margin: auto;
+  padding: 0 7rem;
+
+  &_promo {
+    max-width: 120rem;
+    padding: 0 4rem;
+  }
+
+  @include media-medium {
+    padding: 0 4rem;
+  }
+
+  @include media-small {
+    padding: 0 3rem;
+
+    &_main {
+      padding: 0 5rem;
+    }
+
+    &_promo {
+      padding: 0 2rem;
+    }
+
+    &_student {
+      padding: 0 5rem;
+    }
+  }
+
+  @include media-mobile {
+    padding: 0 1.4rem;
+
+    &_main {
+      padding: 0 1.8rem;
+    }
+
+    &_footer {
+      padding: 0 1rem;
+    }
+  }
+}

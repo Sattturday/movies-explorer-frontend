@@ -1,0 +1,80 @@
+@import '../../../styles/abstract/constants.scss';
+@import '../../../styles/abstract/placeholders.scss';
+@import '../../../styles/abstract/mixins.scss';
+
+.search {
+  padding: 8rem 0 1rem;
+
+  @include media-mobile {
+    padding: 7.9rem 0 1rem;
+  }
+}
+
+.search__form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search__input {
+  padding: 1.6rem 2rem;
+  width: 91.75%;
+  background-color: $color-light-xs;
+  border-radius: 0.8rem;
+  border: none;
+  color: $color-light-xl;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.28;
+  outline: none;
+
+  &:focus {
+    background-color: $color-dark-xs;
+  }
+
+  &::-webkit-input-placeholder {
+    @extend %font-prim;
+    font-style: normal;
+  }
+
+  &::-moz-placeholder {
+    @extend %font-prim;
+    font-style: normal;
+  }
+
+  &::-ms-input-placeholder {
+    @extend %font-prim;
+    font-style: normal;
+  }
+
+  &::placeholder {
+    @extend %font-prim;
+    font-style: normal;
+  }
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px $color-light-xs inset;
+  }
+
+  &:-webkit-autofill {
+    -webkit-text-fill-color: $color-light-xl;
+  }
+
+  @include media-mobile {
+    padding: 1.3rem;
+  }
+}
+
+.search__submit {
+  flex-shrink: 0;
+  width: 4.4rem;
+  min-height: 4.4rem;
+  background-image: url(../../../images/icon/find.svg);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  @include button;
+}

@@ -1,0 +1,49 @@
+@import '../../../styles/abstract/constants.scss';
+@import '../../../styles/abstract/placeholders.scss';
+@import '../../../styles/abstract/mixins.scss';
+
+.form {
+  width: 100%;
+  min-height: 38rem;
+  display: grid;
+  align-items: end;
+
+  @include media-mobile {
+    min-height: calc(100vh - 31.2rem);
+  }
+
+  &_type_login {
+    grid-template-rows: min-content min-content 1fr;
+  }
+
+  &_type_register {
+    grid-template-rows: min-content min-content min-content 1fr;
+  }
+}
+
+.form__submit {
+  width: 100%;
+  min-height: 4.5rem;
+  color: $color-light-xl;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: normal;
+  background-color: $color-blue;
+  border-radius: 3px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  @include button;
+
+  &_disabled {
+    color: $color-light-l;
+    @include disabled;
+    background-color: transparent;
+    border: 1px solid $color-light-l;
+    opacity: 0.8;
+  }
+
+  @include media-mobile {
+    font-size: 1.2rem;
+  }
+}
