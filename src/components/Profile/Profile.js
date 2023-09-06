@@ -10,7 +10,7 @@ import Input from '../common/Input/Input';
 import './Profile.scss';
 
 function Profile({ onEditProfile, onUpdateUser, onLogout }) {
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
+  const { values, setValues, handleChange, errors, isValid, setIsValid, resetForm } =
     useFormAndValidation();
   const app = useContext(AppContext);
   const currentUser = useContext(CurrentUserContext);
@@ -28,6 +28,13 @@ function Profile({ onEditProfile, onUpdateUser, onLogout }) {
       email: currentUser.email,
     });
   }, [setValues, resetForm, currentUser]);
+
+  useEffect(() => {
+    if(currentUser.name !== values.name || currentUser.email !== values.email){
+      return setIsValid(true);
+    }
+    return setIsValid(false);
+  }, [values, setIsValid, currentUser]);
 
   return (
     <>

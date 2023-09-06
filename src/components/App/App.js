@@ -20,6 +20,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import Layout from '../Layout/Layout';
+import InfoTooltip from '../common/InfoToolTip/InfoToolTip';
 
 function App() {
   const [showHeader, setShowHeader] = useState('');
@@ -73,8 +74,16 @@ function App() {
     setMenuOpen(!menuOpen);
   }
 
+  function handleEditProfile() {
+    setIsEdit(true);
+  }
+
   function handleInfoMessage(message) {
     setInfoMessage(message);
+  }
+
+  function closeAllPopups() {
+    setInfoMessage(null);
   }
 
   function handleRegister(values) {
@@ -85,7 +94,7 @@ function App() {
           handleLogin(values);
         });
     }
-    handleSubmit(makeRequest, true);
+    handleSubmit(makeRequest, );
   }
 
   function handleLogin(values) {
@@ -125,16 +134,11 @@ function App() {
     function makeRequest() {
       return setUserInfo(data).then((data) => {
         setCurrentUser(data);
-        console.log('user', data);
         setIsEdit(false);
       }
       );
     }
-    handleSubmit(makeRequest, false);
-  }
-
-  function handleEditProfile() {
-    setIsEdit(true);
+    handleSubmit(makeRequest, true);
   }
 
   function handleLogout() {
@@ -143,7 +147,6 @@ function App() {
         if (data) {
           localStorage.removeItem('userId');
           setLoggedIn(false);
-          console.log('by');
           navigate('/');
         } else {
           return;
@@ -154,9 +157,11 @@ function App() {
   }
 
   // отправка запросов
-  function handleSubmit(request, showInfo) {
+  function handleSubmit(request, showInfo, processName) {
+    //    setIsLoading(true);
     request()
       .then(() => {
+        closeAllPopups();
         if (showInfo) {
           handleSuccess();
         }
@@ -165,21 +170,20 @@ function App() {
         console.log(err);
         handleError();
       });
+    //      .finally(() => setIsLoading(false));
   }
 
   // обработка ошибок запросов
   function handleError() {
     return setInfoMessage({
       text: 'Что-то пошло не так! Попробуйте ещё раз.',
-      isSuccess: false,
     });
   }
 
   // обработка успешной регистрации
   function handleSuccess() {
     return setInfoMessage({
-      text: 'Вы успешно зарегистрировались!',
-      isSuccess: true,
+      text: 'Профиль успешно обновлён!',
     });
   }
 
@@ -188,6 +192,7 @@ function App() {
       value={{
         showHeader,
         showFooter,
+        closeAllPopups,
         loggedIn,
         menuOpen,
         isEdit,
@@ -226,6 +231,7 @@ function App() {
               <ProtectedRoute
                 element={Profile}
                 loggedIn={loggedIn}
+                infoMessage={infoMessage}
                 onUpdateUser={handleUpdateUser}
                 onEditProfile={handleEditProfile}
                 onLogout={handleLogout}
@@ -237,6 +243,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
+        <InfoTooltip message={infoMessage} />
       </CurrentUserContext.Provider>
     </AppContext.Provider>
   );
