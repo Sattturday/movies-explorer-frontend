@@ -2,16 +2,18 @@ import { Link } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 
 import { AppContext } from '../../contexts/AppContext';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import { emailRegex, nameRegex } from '../../utils/data';
 import ProfileForm from '../common/ProfileForm/ProfileForm';
 import Input from '../common/Input/Input';
-import Header from '../common/Header/Header';
 import './Profile.scss';
 
-function Profile({ onEditProfile, onUpdateUser, onBurgerClick, onLogout }) {
+function Profile({ onEditProfile, onUpdateUser, onLogout }) {
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
   const app = useContext(AppContext);
+  const currentUser = useContext(CurrentUserContext);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -20,29 +22,28 @@ function Profile({ onEditProfile, onUpdateUser, onBurgerClick, onLogout }) {
   }
 
   useEffect(() => {
-    resetForm(true);
+    resetForm(false);
     setValues({
-      name: app.userName,
-      email: app.userMail,
+      name: currentUser.name,
+      email: currentUser.email,
     });
-  }, [setValues, resetForm, app]);
+  }, [setValues, resetForm, currentUser]);
 
   return (
     <>
-      <Header onBurgerClick={onBurgerClick} />
       <main>
         <section className="profile">
-          <h1 className="profile__title">Привет, {app.userName}!</h1>
+          <h1 className="profile__title">Привет, {currentUser.name}!</h1>
           {!app.isEdit ? (
             <div className="profile__container">
               <ul className="profile__info-list">
                 <li className="profile__info-item underline">
                   <p className="profile__subtitle">Имя</p>
-                  <p className="profile__name">{app.userName}</p>
+                  <p className="profile__name">{currentUser.name}</p>
                 </li>
                 <li className="profile__info-item">
                   <p className="profile__subtitle">E-mail</p>
-                  <p className="profile__mail">{app.userMail}</p>
+                  <p className="profile__mail">{currentUser.email}</p>
                 </li>
               </ul>
               <nav className="profile__nav">
@@ -87,15 +88,17 @@ function Profile({ onEditProfile, onUpdateUser, onBurgerClick, onLogout }) {
                 errors={errors}
                 values={values}
                 handleChange={handleChange}
+                pattern={nameRegex.source}
               />
               <Input
                 name="email"
                 title="E-mail"
-                type="email"
+                type="text"
                 placeholder="Email"
                 errors={errors}
                 values={values}
                 handleChange={handleChange}
+                pattern={emailRegex.source}
               />
             </ProfileForm>
           )}

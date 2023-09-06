@@ -1,18 +1,12 @@
-import Header from '../common/Header/Header';
-import Footer from '../common/Footer/Footer';
 import SearchForm from '../common/SearchForm/SearchForm';
 import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
 
-function SavedMovies({onBurgerClick}) {
+function SavedMovies() {
   return (
-    <>
-      <Header onBurgerClick={onBurgerClick} />
-      <main>
-        <SearchForm />
-        <MoviesCardList />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <SearchForm />
+      <MoviesCardList />
+    </main>
   );
 }
 

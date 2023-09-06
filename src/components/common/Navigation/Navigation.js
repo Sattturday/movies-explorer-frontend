@@ -6,7 +6,7 @@ import { AppContext } from '../../../contexts/AppContext';
 
 function Navigation({onBurgerClick}) {
   const app = useContext(AppContext);
-  console.log(app);
+
   return (
     app.loggedIn ? (
       <div className="navigation">

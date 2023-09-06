@@ -1,4 +1,4 @@
-import { BASE_URL_MAIN } from './utils';
+import { BASE_URL_MAIN } from './config';
 
 const _checkAnswer = (res) => {
   if (res.ok) {
@@ -11,13 +11,13 @@ const _request = (url, options) => {
   return fetch(`${BASE_URL_MAIN}${url}`, options).then(_checkAnswer);
 };
 
-export const register = ({ email, password }) => {
+export const register = ({ name, email, password }) => {
   return _request('/signup', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ name, email, password }),
   });
 };
 
@@ -43,24 +43,13 @@ export const logout = () => {
   });
 };
 
-export const checkToken = () => {
-  return _request('/users/me', {
-    method: 'GET',
-    credentials: 'include',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-  });
-};
-
 export const getUserInfo = () => {
   return _request('/users/me', {
     credentials: 'include',
   });
 };
 
-export const setUserInfo = ({ name, about }) => {
+export const setUserInfo = ({ name, email }) => {
   return _request('/users/me', {
     method: 'PATCH',
     credentials: 'include',
@@ -69,7 +58,7 @@ export const setUserInfo = ({ name, about }) => {
     },
     body: JSON.stringify({
       name: name,
-      about: about,
+      email: email,
     }),
   });
 };

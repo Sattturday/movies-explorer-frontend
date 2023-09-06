@@ -99,3 +99,7 @@ const movies = [
 ];
 
 export default movies;
+
+export const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s\-]*$/;
+export const emailRegex = /^[a-zA-Z0-9+\._\-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]{2,4}$/;
+

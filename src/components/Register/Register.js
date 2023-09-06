@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 
-import '../Login/Login.scss';
-import Input from '../common/Input/Input';
-import Form from '../common/Form/Form';
 import { AppContext } from '../../contexts/AppContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import { emailRegex, nameRegex } from '../../utils/data';
+import Input from '../common/Input/Input';
+import Form from '../common/Form/Form';
+import '../Login/Login.scss';
 
-function Login({ handleRegister }) {
+function Register({ handleRegister }) {
   const { values, handleChange, errors, isValid, resetForm } =
     useFormAndValidation();
   const app = useContext(AppContext);
@@ -45,6 +46,7 @@ function Login({ handleRegister }) {
             errors={errors}
             values={values}
             handleChange={handleChange}
+            pattern={nameRegex.source}
           />
           <Input
             name="email"
@@ -54,6 +56,7 @@ function Login({ handleRegister }) {
             errors={errors}
             values={values}
             handleChange={handleChange}
+            pattern={emailRegex.source}
           />
           <Input
             name="password"
@@ -75,4 +78,4 @@ function Login({ handleRegister }) {
   );
 }
 
-export default Login;
+export default Register;
