@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import movies from '../../utils/data';
+import { errors } from '../../utils/data';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { AppContext } from '../../contexts/AppContext';
 import {
@@ -23,6 +24,7 @@ import Layout from '../Layout/Layout';
 import InfoTooltip from '../common/InfoToolTip/InfoToolTip';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
   const [showHeader, setShowHeader] = useState('');
   const [showFooter, setShowFooter] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
@@ -78,10 +80,6 @@ function App() {
     setIsEdit(true);
   }
 
-  function handleInfoMessage(message) {
-    setInfoMessage(message);
-  }
-
   function closeAllPopups() {
     setInfoMessage(null);
   }
@@ -94,7 +92,7 @@ function App() {
           handleLogin(values);
         });
     }
-    handleSubmit(makeRequest, );
+    handleSubmit(makeRequest, false, 'register');
   }
 
   function handleLogin(values) {
@@ -111,22 +109,20 @@ function App() {
         }
       });
     }
-    handleSubmit(makeRequest, false);
+    handleSubmit(makeRequest, false, 'login');
   }
 
   function tokenCheck() {
     const userId = localStorage.getItem('userId');
-    console.log('local?');
     function makeRequest() {
       return getUserInfo().then(() => {
         setLoggedIn(true);
-        console.log('tokenCheck');
       //  navigate('/movies');
       });
     }
 
     if (userId) {
-      handleSubmit(makeRequest, false);
+      handleSubmit(makeRequest, false, 'common');
     }
   }
 
@@ -138,7 +134,7 @@ function App() {
       }
       );
     }
-    handleSubmit(makeRequest, true);
+    handleSubmit(makeRequest, true, 'profile');
   }
 
   function handleLogout() {
@@ -153,12 +149,12 @@ function App() {
         }
       });
     }
-    handleSubmit(makeRequest, false);
+    handleSubmit(makeRequest, false, 'common');
   }
 
   // отправка запросов
   function handleSubmit(request, showInfo, processName) {
-    //    setIsLoading(true);
+    setIsLoading(true);
     request()
       .then(() => {
         closeAllPopups();
@@ -168,28 +164,39 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        handleError();
-      });
-    //      .finally(() => setIsLoading(false));
+        handleError(err, processName);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   // обработка ошибок запросов
-  function handleError() {
+  function handleError(err, processName) {
+    if (err === 'Ошибка: 401') {
+      return setInfoMessage({
+        text: errors[processName].BAD_REQUEST_MESSAGE,
+      });
+    }
+    if (err === 'Ошибка: 409') {
+      return setInfoMessage({
+        text: errors[processName].BAD_EMAIL_MESSAGE,
+      });
+    }
     return setInfoMessage({
-      text: 'Что-то пошло не так! Попробуйте ещё раз.',
+      text: errors.common.ERROR_MESSAGE,
     });
   }
 
   // обработка успешной регистрации
   function handleSuccess() {
     return setInfoMessage({
-      text: 'Профиль успешно обновлён!',
+      text: errors.profile.UPDATE_USER_MESSAGE,
     });
   }
 
   return (
     <AppContext.Provider
       value={{
+        isLoading,
         showHeader,
         showFooter,
         closeAllPopups,
@@ -203,16 +210,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout  onBurgerClick={handleBurgerClick} /> }>
             <Route path="/" element={<Main />} />
-            {/* <Route path="/movies" element={<Movies onBurgerClick={handleBurgerClick} />} />
-            <Route path="/saved-movies" element={<SavedMovies onBurgerClick={handleBurgerClick} />} />
-            <Route path="/profile"
-              element={<Profile
-                onUpdateUser={handleUpdateUser}
-                onEditProfile={handleEditProfile}
-                onBurgerClick={handleBurgerClick}
-                onLogout={handleLogout} />}
-            /> */}
-
             <Route path="/movies" element={
               <ProtectedRoute
                 element={Movies}
