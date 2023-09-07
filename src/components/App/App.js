@@ -101,7 +101,6 @@ function App() {
         if (data._id) {
           localStorage.setItem('userId', data._id);
           setLoggedIn(true);
-          console.log('hi');
           navigate('/movies');
           return data;
         } else {
@@ -114,10 +113,16 @@ function App() {
 
   function tokenCheck() {
     const userId = localStorage.getItem('userId');
+    const path = location.pathname;
+
     function makeRequest() {
       return getUserInfo().then(() => {
         setLoggedIn(true);
-      //  navigate('/movies');
+        if (path === '/signin' || path === '/signup') {
+          navigate('/movies');
+        } else {
+          navigate(path);
+        }
       });
     }
 
