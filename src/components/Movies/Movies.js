@@ -1,11 +1,12 @@
 import SearchForm from '../common/SearchForm/SearchForm';
 import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
+import { getMovies } from '../../utils/MoviesApi';
 
-function Movies() {
+function Movies({onSearch}) {
   return (
     <main>
-      <SearchForm />
-      <MoviesCardList />
+      <SearchForm onSearch={onSearch} />
+      {/* <MoviesCardList /> */}
     </main>
   );
 }

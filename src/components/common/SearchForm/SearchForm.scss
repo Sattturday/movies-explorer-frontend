@@ -25,6 +25,8 @@
   border-radius: 0.8rem;
   border: none;
   color: $color-light-xl;
+  caret-color: $color-light-xl;
+
   font-size: 1.4rem;
   font-weight: 400;
   line-height: 1.28;
@@ -77,4 +79,14 @@
   outline: none;
   cursor: pointer;
   @include button;
+}
+
+.search__error {
+  min-height: 1rem;
+  display: flex;
+  align-items: flex-end;
+  color: $color-red;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
 }

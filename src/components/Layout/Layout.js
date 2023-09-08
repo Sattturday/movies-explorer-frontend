@@ -11,7 +11,7 @@ function Layout({ onBurgerClick }) {
   return (
     <>
       {app.showHeader && <Header onBurgerClick={onBurgerClick} />}
-      {!app.isLoading ? <Outlet /> : <Preloader />}
+      {app.isLoading ? <Preloader /> : <Outlet />}
       {app.showFooter && <Footer /> }
     </>
   );

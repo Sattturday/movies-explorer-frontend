@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
-import movies from '../../utils/data';
 import { errors } from '../../utils/data';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { AppContext } from '../../contexts/AppContext';
@@ -22,6 +21,7 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import Layout from '../Layout/Layout';
 import InfoTooltip from '../common/InfoToolTip/InfoToolTip';
+import { getMovies } from '../../utils/MoviesApi';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -68,7 +68,7 @@ function App() {
       getUserInfo()
         .then((data) => {
           setCurrentUser(data);})
-        .catch((err) => console.error(err));
+        .catch(console.error);
     }
   }, [loggedIn]);
 
@@ -88,7 +88,6 @@ function App() {
     function makeRequest() {
       return register(values)
         .then(() => {
-          console.log('register)');
           handleLogin(values);
         });
     }
@@ -157,6 +156,46 @@ function App() {
     handleSubmit(makeRequest, false, 'common');
   }
 
+  // movies
+  function getBeatFilmMovies() {
+    function makeRequest() {
+      return getMovies().then((data) => {
+        localStorage.setItem('movies', JSON.stringify(data));
+      });
+    }
+    handleSubmit(makeRequest, false, 'films');
+  }
+
+  function performSearch(searchValue, movies) {
+    const keywords = searchValue.search.toLowerCase().split(' ');
+    console.log('Выполняется поиск среди фильмов:', keywords);
+
+    const filteredMovies = movies.filter((movie) => {
+      const keywordsFound = keywords.some((keyword) => {
+        const nameRU = movie.nameRU.toLowerCase();
+        const nameEN = movie.nameEN.toLowerCase();
+        return nameRU.includes(keyword.toLowerCase()) || nameEN.includes(keyword.toLowerCase());
+      });
+      return keywordsFound;
+    });
+
+    console.log('Результат поиска:', filteredMovies);
+  }
+
+  function handleSearch(values) {
+    let movies = localStorage.getItem('movies');
+
+    if (!movies) {
+      getBeatFilmMovies();
+      movies = localStorage.getItem('movies');
+      console.log('new films', JSON.parse(movies));
+    } else {
+      console.log('old films', JSON.parse(movies));
+    }
+
+    performSearch(values, JSON.parse(movies));
+  }
+
   // отправка запросов
   function handleSubmit(request, showInfo, processName) {
     setIsLoading(true);
@@ -208,7 +247,6 @@ function App() {
         loggedIn,
         menuOpen,
         isEdit,
-        movies,
       }}
     >
       <CurrentUserContext.Provider value={currentUser}>
@@ -219,6 +257,7 @@ function App() {
               <ProtectedRoute
                 element={Movies}
                 loggedIn={loggedIn}
+                onSearch={handleSearch}
               />
             }
             />
