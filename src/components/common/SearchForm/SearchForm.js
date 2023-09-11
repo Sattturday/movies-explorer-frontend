@@ -6,8 +6,8 @@ import './SearchForm.scss';
 import { errors } from '../../../utils/data';
 import { getDataLocal } from '../../../utils/utils';
 
-function SearchForm({ onSearch, isShorts, setIsShorts }) {
-  const { values, handleChange } = useFormAndValidation();
+function SearchForm({ onSearch, searchText, isShorts, setIsShorts }) {
+  const { values, setValues, handleChange } = useFormAndValidation();
   const [errorSearch, setErrorSearch] = useState('');
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -52,7 +52,7 @@ function SearchForm({ onSearch, isShorts, setIsShorts }) {
             type="text"
             minLength="2"
             placeholder="Фильм"
-            value={values['search'] || ''}
+            value={values['search'] || searchText}
             onChange={handleChange}
             required
           />

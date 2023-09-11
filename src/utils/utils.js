@@ -1,7 +1,7 @@
 import { BASE_URL_MOVIES } from './config';
 
 export const performSearch = (searchValue, isShorts, movies) => {
-  const keywords = searchValue.search.toLowerCase().split(' ');
+  const keywords = searchValue.toLowerCase().split(' ');
 
   const searchedMovies = movies.filter((movie) => {
     const keywordsFound = keywords.some((keyword) => {
@@ -17,7 +17,7 @@ export const performSearch = (searchValue, isShorts, movies) => {
     return keywordsFound;
   });
 
-  postDataLocal('searchedValues', { keywords: searchValue.search, isShorts: isShorts });
+  postDataLocal('searchedValues', { keywords: searchValue, isShorts: isShorts });
   postDataLocal('searchedMovies', parseMovies(searchedMovies));
   const storageEvent = new Event('storage');
   window.dispatchEvent(storageEvent);
