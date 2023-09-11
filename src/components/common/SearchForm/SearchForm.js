@@ -3,11 +3,19 @@ import { useEffect, useState } from 'react';
 import { useFormAndValidation } from '../../../hooks/useFormAndValidation';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.scss';
-import {errors} from '../../../utils/data';
+import { errors } from '../../../utils/data';
+import { getDataLocal } from '../../../utils/utils';
 
-function SearchForm({onSearch}) {
-  const { values, handleChange, resetForm } = useFormAndValidation();
+function SearchForm({ onSearch, isShorts, setIsShorts }) {
+  const { values, handleChange } = useFormAndValidation();
   const [errorSearch, setErrorSearch] = useState('');
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (hasSubmitted) {
+      onSearch(values);
+    }
+  }, [isShorts, hasSubmitted]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -16,13 +24,17 @@ function SearchForm({onSearch}) {
       setErrorSearch(errors.films.ERROR_SEARCH_SUBMIT);
     } else {
       setErrorSearch('');
+      setHasSubmitted(true);
       onSearch(values);
     }
   }
 
-  useEffect(() => {
-    resetForm(true);
-  }, [resetForm]);
+  function handleShorts() {
+    setIsShorts(!isShorts);
+    if (hasSubmitted) {
+      onSearch(values);
+    }
+  }
 
   return (
     <section className="search" aria-label="Поиск фильмов">
@@ -50,7 +62,7 @@ function SearchForm({onSearch}) {
           ></button>
         </form>
         <span className="search__error">{errorSearch}</span>
-        <FilterCheckbox />
+        <FilterCheckbox isShorts={isShorts} toggleShorts={handleShorts} />
       </div>
     </section>
   );

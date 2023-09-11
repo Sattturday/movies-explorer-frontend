@@ -21,12 +21,12 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import Layout from '../Layout/Layout';
 import InfoTooltip from '../common/InfoToolTip/InfoToolTip';
-import { getMovies } from '../../utils/MoviesApi';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
   const [showHeader, setShowHeader] = useState('');
   const [showFooter, setShowFooter] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -146,6 +146,8 @@ function App() {
       return logout().then((data) => {
         if (data) {
           localStorage.removeItem('userId');
+          localStorage.removeItem('searchedMovies');
+          localStorage.removeItem('searchedValues');
           setLoggedIn(false);
           navigate('/');
         } else {
@@ -154,46 +156,6 @@ function App() {
       });
     }
     handleSubmit(makeRequest, false, 'common');
-  }
-
-  // movies
-  function getBeatFilmMovies() {
-    function makeRequest() {
-      return getMovies().then((data) => {
-        localStorage.setItem('movies', JSON.stringify(data));
-      });
-    }
-    handleSubmit(makeRequest, false, 'films');
-  }
-
-  function performSearch(searchValue, movies) {
-    const keywords = searchValue.search.toLowerCase().split(' ');
-    console.log('Выполняется поиск среди фильмов:', keywords);
-
-    const filteredMovies = movies.filter((movie) => {
-      const keywordsFound = keywords.some((keyword) => {
-        const nameRU = movie.nameRU.toLowerCase();
-        const nameEN = movie.nameEN.toLowerCase();
-        return nameRU.includes(keyword.toLowerCase()) || nameEN.includes(keyword.toLowerCase());
-      });
-      return keywordsFound;
-    });
-
-    console.log('Результат поиска:', filteredMovies);
-  }
-
-  function handleSearch(values) {
-    let movies = localStorage.getItem('movies');
-
-    if (!movies) {
-      getBeatFilmMovies();
-      movies = localStorage.getItem('movies');
-      console.log('new films', JSON.parse(movies));
-    } else {
-      console.log('old films', JSON.parse(movies));
-    }
-
-    performSearch(values, JSON.parse(movies));
   }
 
   // отправка запросов
@@ -251,13 +213,12 @@ function App() {
     >
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route path="/" element={<Layout  onBurgerClick={handleBurgerClick} /> }>
+          <Route path="/" element={<Layout onBurgerClick={handleBurgerClick} /> }>
             <Route path="/" element={<Main />} />
             <Route path="/movies" element={
               <ProtectedRoute
                 element={Movies}
                 loggedIn={loggedIn}
-                onSearch={handleSearch}
               />
             }
             />

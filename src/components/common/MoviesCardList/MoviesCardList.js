@@ -1,15 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import './MoviesCardList.scss';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { AppContext } from '../../../contexts/AppContext';
+import { getDataLocal } from '../../../utils/utils';
 
 function MoviesCardList() {
   const location = useLocation();
-  const app = useContext(AppContext);
 
   const [isSaved, setIsSaved] = useState('');
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     if (location.pathname === '/saved-movies') {
@@ -19,31 +19,36 @@ function MoviesCardList() {
     }
   }, [location]);
 
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const movies = getDataLocal('searchedMovies');
+      setMovies(movies);
+
+      if (movies.length === 0) {
+        console.log('пусто');
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
   return (
     <section className="movies" aria-label="Список фильмов">
       <div className="wrapper">
         <ul className="movies__list">
-          {isSaved ? (
-            app.movies
-              .filter((movie) => movie.saved === true)
-              .map((movie) => (
-                <MoviesCard
-                  key={movie._id}
-                  card={movie}
-                  isSaved={isSaved}
-                />
-              ))
-          ) : (
-            app.movies.map((movie) => (
-              <MoviesCard
-                key={movie._id}
-                card={movie}
-                isSaved={isSaved}
-              />
-            ))
-          )}
+          { movies.map((movie) => (
+            <MoviesCard
+              key={movie.created_at}
+              card={movie}
+              isSaved={isSaved}
+            />
+          ))}
         </ul>
-        {!isSaved && (<button className="movies__more" type="button">Ещё</button>)}
+        {/* {!isSaved && (<button className="movies__more" type="button">Ещё</button>)} */}
       </div>
     </section>
   );

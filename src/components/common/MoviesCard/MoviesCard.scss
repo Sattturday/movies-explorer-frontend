@@ -17,6 +17,11 @@
   }
 }
 
+.card__link {
+  text-decoration: none;
+  color: $color-light-xl;
+}
+
 .card__button {
   position: absolute;
   top: 1.4rem;
@@ -59,7 +64,11 @@
 }
 
 .card__image {
+  display: block;
   border-radius: 0.6rem;
+  width: 100%;
+  aspect-ratio: 1 / 0.55;
+  object-fit: cover;
 }
 
 .card__info {
