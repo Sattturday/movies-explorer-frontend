@@ -10,6 +10,7 @@ import {
   login,
   logout,
   register,
+  addMovie,
 } from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
@@ -47,7 +48,6 @@ function App() {
       getUserInfo()
         .then((data) => {
           setCurrentUser(data);
-          console.log('получили и включили юзердата');
         })
         .catch(console.error);
     }
@@ -86,6 +86,7 @@ function App() {
     setInfoMessage(null);
   }
 
+  // users
   function handleRegister(values) {
     function makeRequest() {
       return register(values)
@@ -115,10 +116,9 @@ function App() {
   function tokenCheck() {
     const userId = localStorage.getItem('userId');
     const path = location.pathname;
-    console.log('check?');
 
     function makeRequest() {
-      return getUserInfo().then((data) => {
+      return getUserInfo().then(() => {
         setLoggedIn(true);
         if (path === '/signin' || path === '/signup') {
           navigate('/movies');
@@ -129,7 +129,6 @@ function App() {
     }
 
     if (userId) {
-      console.log('getData');
       handleSubmit(makeRequest, false, 'common');
     }
   }
@@ -163,6 +162,14 @@ function App() {
     handleSubmit(makeRequest, false, 'common');
   }
 
+  // movies
+  function handleSaveMovie(data) {
+    function makeRequest() {
+      return addMovie(data).then((newMovie) => console.log('newMovie', newMovie.saved));
+    }
+    handleSubmit(makeRequest, false, 'films');
+  }
+
   // отправка запросов
   function handleSubmit(request, showInfo, processName) {
     setIsLoading(true);
@@ -189,7 +196,7 @@ function App() {
     }
     if (err === 'Ошибка: 409') {
       return setInfoMessage({
-        text: errors[processName].BAD_EMAIL_MESSAGE,
+        text: errors[processName].BAD_ID_MESSAGE,
       });
     }
     return setInfoMessage({
@@ -224,6 +231,7 @@ function App() {
               <ProtectedRoute
                 element={Movies}
                 loggedIn={loggedIn}
+                onSaveMovie={handleSaveMovie}
               />
             }
             />

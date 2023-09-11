@@ -6,7 +6,7 @@ import { getDataLocal, performSearch, postDataLocal } from '../../utils/utils';
 import Preloader from '../common/Preloader/Preloader';
 import { errors } from '../../utils/data';
 
-function Movies() {
+function Movies({onSaveMovie}) {
   const [sourceMovies, setSourceMovies] = useState([]);
   const [isShorts, setIsShorts] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -59,7 +59,11 @@ function Movies() {
       {isContentLoading ? (
         <Preloader />
       ) : (
-        <MoviesCardList moviesMessage={moviesMessage} setMoviesMessage={setMoviesMessage} />
+        <MoviesCardList
+          moviesMessage={moviesMessage}
+          setMoviesMessage={setMoviesMessage}
+          onSaveMovie={onSaveMovie}
+        />
       )}
     </main>
   );

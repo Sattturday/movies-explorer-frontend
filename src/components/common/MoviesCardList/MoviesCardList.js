@@ -6,7 +6,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import { getDataLocal } from '../../../utils/utils';
 import { errors } from '../../../utils/data';
 
-function MoviesCardList({moviesMessage, setMoviesMessage}) {
+function MoviesCardList({moviesMessage, setMoviesMessage, onSaveMovie}) {
   const location = useLocation();
 
   const [isSaved, setIsSaved] = useState('');
@@ -49,6 +49,7 @@ function MoviesCardList({moviesMessage, setMoviesMessage}) {
                 key={movie.created_at}
                 card={movie}
                 isSaved={isSaved}
+                onSaveMovie={onSaveMovie}
               />
             ))}
           </ul>

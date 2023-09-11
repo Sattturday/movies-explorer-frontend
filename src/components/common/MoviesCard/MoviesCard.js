@@ -1,7 +1,11 @@
 import { convertDuration } from '../../../utils/utils';
 import './MoviesCard.scss';
 
-function MoviesCard({ card, isSaved }) {
+function MoviesCard({ card, isSaved, onSaveMovie }) {
+  function handleCardSave() {
+    onSaveMovie(card);
+  }
+
   return (
     <li className="card">
       <a
@@ -14,6 +18,7 @@ function MoviesCard({ card, isSaved }) {
           <button
             className="card__button card__button_type_saved"
             type="button"
+            onClick={handleCardSave}
           >Сохранить</button>
         ) : (
           <button
@@ -26,7 +31,7 @@ function MoviesCard({ card, isSaved }) {
 
         <img
           className="card__image"
-          src={card.img}
+          src={card.image}
           alt={`Обложка фильма ${card.nameRU}`}
         />
 

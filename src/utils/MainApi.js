@@ -11,6 +11,7 @@ const _request = (url, options) => {
   return fetch(`${BASE_URL_MAIN}${url}`, options).then(_checkAnswer);
 };
 
+// users
 export const register = ({ name, email, password }) => {
   return _request('/signup', {
     method: 'POST',
@@ -63,26 +64,32 @@ export const setUserInfo = ({ name, email }) => {
   });
 };
 
+// cards
 export const getCards = () => {
-  return _request('/cards', {
+  return _request('/movies', {
     credentials: 'include',
   });
 };
 
-export const addCard = ({ name, link }) => {
-  return _request('/cards', {
+export const addMovie = (data) => {
+  return _request('/movies', {
     method: 'POST',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      name: name,
-      link: link,
-    }),
+    body: JSON.stringify(data),
   });
 };
 
+export const deleteMovie = (movieId) => {
+  return _request(`/movies/${movieId}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+};
+
+// ...
 const _addLikeCard = (id) => {
   return _request(`/cards/${id}/likes`, {
     method: 'PUT',
@@ -109,12 +116,5 @@ export const toggleLikeCard = (cardId, isLiked) => {
   } else {
     return _addLikeCard(cardId);
   }
-};
-
-export const deleteCard = (cardId) => {
-  return _request(`/cards/${cardId}`, {
-    method: 'DELETE',
-    credentials: 'include',
-  });
 };
 

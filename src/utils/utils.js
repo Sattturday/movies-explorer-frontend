@@ -29,9 +29,10 @@ export const parseMovies = (movies) =>
       ...movie,
       movieId: movie.id,
       saved: false,
-      img: movie.image ? BASE_URL_MOVIES + movie.image.url : '',
+      image: movie.image ? BASE_URL_MOVIES + movie.image.url : '',
     };
-
+    delete parsedMovie.id;
+    delete parsedMovie.updated_at;
     return parsedMovie;
   });
 
