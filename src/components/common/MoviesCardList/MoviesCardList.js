@@ -4,8 +4,9 @@ import { useLocation } from 'react-router-dom';
 import './MoviesCardList.scss';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { getDataLocal } from '../../../utils/utils';
+import { errors } from '../../../utils/data';
 
-function MoviesCardList() {
+function MoviesCardList({moviesMessage, setMoviesMessage}) {
   const location = useLocation();
 
   const [isSaved, setIsSaved] = useState('');
@@ -25,7 +26,7 @@ function MoviesCardList() {
       setMovies(movies);
 
       if (movies.length === 0) {
-        console.log('пусто');
+        setMoviesMessage(errors.films.SEARCH_NOT_FOUND_MESSAGE);
       }
     };
 
@@ -39,15 +40,20 @@ function MoviesCardList() {
   return (
     <section className="movies" aria-label="Список фильмов">
       <div className="wrapper">
-        <ul className="movies__list">
-          { movies.map((movie) => (
-            <MoviesCard
-              key={movie.created_at}
-              card={movie}
-              isSaved={isSaved}
-            />
-          ))}
-        </ul>
+        {moviesMessage ? (
+          <p className="movies__message">{moviesMessage}</p>
+        ) : (
+          <ul className="movies__list">
+            { movies.map((movie) => (
+              <MoviesCard
+                key={movie.created_at}
+                card={movie}
+                isSaved={isSaved}
+              />
+            ))}
+          </ul>
+        )}
+
         {/* {!isSaved && (<button className="movies__more" type="button">Ещё</button>)} */}
       </div>
     </section>

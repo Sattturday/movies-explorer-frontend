@@ -43,6 +43,17 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (loggedIn) {
+      getUserInfo()
+        .then((data) => {
+          setCurrentUser(data);
+          console.log('получили и включили юзердата');
+        })
+        .catch(console.error);
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
     if (location.pathname === '/' ||
     location.pathname === '/movies' ||
     location.pathname === '/saved-movies' ||
@@ -62,15 +73,6 @@ function App() {
       setShowFooter(false);
     }
   }, [location]);
-
-  useEffect(() => {
-    if (loggedIn) {
-      getUserInfo()
-        .then((data) => {
-          setCurrentUser(data);})
-        .catch(console.error);
-    }
-  }, [loggedIn]);
 
   function handleBurgerClick() {
     setMenuOpen(!menuOpen);
@@ -113,9 +115,10 @@ function App() {
   function tokenCheck() {
     const userId = localStorage.getItem('userId');
     const path = location.pathname;
+    console.log('check?');
 
     function makeRequest() {
-      return getUserInfo().then(() => {
+      return getUserInfo().then((data) => {
         setLoggedIn(true);
         if (path === '/signin' || path === '/signup') {
           navigate('/movies');
@@ -126,6 +129,7 @@ function App() {
     }
 
     if (userId) {
+      console.log('getData');
       handleSubmit(makeRequest, false, 'common');
     }
   }
@@ -146,6 +150,7 @@ function App() {
       return logout().then((data) => {
         if (data) {
           localStorage.removeItem('userId');
+          localStorage.removeItem('beatMovies');
           localStorage.removeItem('searchedMovies');
           localStorage.removeItem('searchedValues');
           setLoggedIn(false);

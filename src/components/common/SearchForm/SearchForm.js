@@ -4,12 +4,17 @@ import { useFormAndValidation } from '../../../hooks/useFormAndValidation';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.scss';
 import { errors } from '../../../utils/data';
-import { getDataLocal } from '../../../utils/utils';
 
 function SearchForm({ onSearch, searchText, isShorts, setIsShorts }) {
   const { values, setValues, handleChange } = useFormAndValidation();
   const [errorSearch, setErrorSearch] = useState('');
   const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (searchText) {
+      setValues({search: searchText});
+    }
+  }, [searchText]);
 
   useEffect(() => {
     if (hasSubmitted) {
@@ -52,7 +57,7 @@ function SearchForm({ onSearch, searchText, isShorts, setIsShorts }) {
             type="text"
             minLength="2"
             placeholder="Фильм"
-            value={values['search'] || searchText}
+            value={values['search'] || '' }
             onChange={handleChange}
             required
           />
