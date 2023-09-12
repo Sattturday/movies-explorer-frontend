@@ -78,7 +78,10 @@ export const addMovie = (data) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      ...data,
+      isSaved: true,
+    }),
   });
 };
 

@@ -1,35 +1,16 @@
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
-import './MoviesCardList.scss';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { getDataLocal } from '../../../utils/utils';
-import { errors } from '../../../utils/data';
+import './MoviesCardList.scss';
 
-function MoviesCardList({moviesMessage, setMoviesMessage, onSaveMovie}) {
-  const location = useLocation();
-
-  const [isSaved, setIsSaved] = useState('');
-  const [movies, setMovies] = useState([]);
-
+function MoviesCardList({
+  movies,
+  moviesMessage,
+  handleStorageChange,
+  onSaveMovie,
+  onDeleteMovie,
+}) {
   useEffect(() => {
-    if (location.pathname === '/saved-movies') {
-      setIsSaved(true);
-    } else {
-      setIsSaved(false);
-    }
-  }, [location]);
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const movies = getDataLocal('searchedMovies');
-      setMovies(movies);
-
-      if (movies.length === 0) {
-        setMoviesMessage(errors.films.SEARCH_NOT_FOUND_MESSAGE);
-      }
-    };
-
     window.addEventListener('storage', handleStorageChange);
 
     return () => {
@@ -48,8 +29,8 @@ function MoviesCardList({moviesMessage, setMoviesMessage, onSaveMovie}) {
               <MoviesCard
                 key={movie.cardId}
                 card={movie}
-                isSaved={isSaved}
                 onSaveMovie={onSaveMovie}
+                onDeleteMovie={onDeleteMovie}
               />
             ))}
           </ul>
@@ -60,3 +41,4 @@ function MoviesCardList({moviesMessage, setMoviesMessage, onSaveMovie}) {
 }
 
 export default MoviesCardList;
+

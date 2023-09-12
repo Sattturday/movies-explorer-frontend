@@ -1,11 +1,20 @@
+import { useLocation } from 'react-router-dom';
 import { convertDuration } from '../../../utils/utils';
 import './MoviesCard.scss';
 
-function MoviesCard({ card, isSaved, onSaveMovie }) {
+function MoviesCard({ card, onSaveMovie, onDeleteMovie }) {
+  const location = useLocation();
+  const isSavedMoviesPage = location.pathname === '/saved-movies';
+
   function handleCardSave(e) {
     e.preventDefault();
 
     onSaveMovie(card);
+  }
+
+  function handleCardDelete(e) {
+    e.preventDefault();
+    onDeleteMovie(card._id);
   }
 
   return (
@@ -16,7 +25,7 @@ function MoviesCard({ card, isSaved, onSaveMovie }) {
         target="_blank"
         rel="noreferrer"
       >
-        {!card.saved ? (
+        {!card.isSaved ? (
           <button
             className="card__button card__button_type_saved"
             type="button"
@@ -25,9 +34,10 @@ function MoviesCard({ card, isSaved, onSaveMovie }) {
         ) : (
           <button
             className={`card__button card__button_type_unsaved${
-              (isSaved && ' card__button_type_delete') || ''
+              (isSavedMoviesPage && ' card__button_type_delete') || ''
             }`}
             type="button"
+            onClick={handleCardDelete}
           ></button>
         )}
 

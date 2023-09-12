@@ -13,6 +13,7 @@ import {
   addMovie,
   getCards,
   getSavedMovies,
+  deleteMovie,
 } from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
@@ -24,8 +25,6 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import Layout from '../Layout/Layout';
 import InfoTooltip from '../common/InfoToolTip/InfoToolTip';
-import { generateId } from '../../utils/utils';
-import { getMovies } from '../../utils/MoviesApi';
 
 function App() {
   const [showHeader, setShowHeader] = useState('');
@@ -57,7 +56,9 @@ function App() {
         .finally(() => setIsLoading(false));
 
       getSavedMovies()
-        .then(setSavedMovies)
+        .then((res) => {
+          setSavedMovies(res);
+        })
         .catch((err) => console.error(err))
         .finally(() => setIsLoading(false));
     }
@@ -175,8 +176,23 @@ function App() {
   // movies
   function handleSaveMovie(data) {
     function makeRequest() {
-      console.log(generateId());
-      return addMovie(data).then((newMovie) => console.log('newMovie', newMovie.saved));
+      return addMovie(data)
+        .then((newMovie) => {
+          setSavedMovies((prevSavedMovies) => [newMovie, ...prevSavedMovies]);
+        });
+    }
+    handleSubmit(makeRequest, false, 'films');
+  }
+
+  function handleDeleteMovie(movieId) {
+    function makeRequest() {
+      return deleteMovie(movieId)
+        .then(() => {
+          setSavedMovies((prevSavedMovies) => {
+            const updatedSavedMovies = prevSavedMovies.filter((movie) => movie._id !== movieId);
+            return updatedSavedMovies;
+          });
+        });
     }
     handleSubmit(makeRequest, false, 'films');
   }
@@ -244,6 +260,7 @@ function App() {
                 element={Movies}
                 loggedIn={loggedIn}
                 onSaveMovie={handleSaveMovie}
+                onDeleteMovie={handleDeleteMovie}
               />
             }
             />
@@ -251,6 +268,7 @@ function App() {
               <ProtectedRoute
                 element={SavedMovies}
                 loggedIn={loggedIn}
+                onDeleteMovie={handleDeleteMovie}
               />
             }
             />
