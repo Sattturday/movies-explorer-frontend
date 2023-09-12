@@ -11,6 +11,8 @@ import {
   logout,
   register,
   addMovie,
+  getCards,
+  getSavedMovies,
 } from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
@@ -22,6 +24,8 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import Layout from '../Layout/Layout';
 import InfoTooltip from '../common/InfoToolTip/InfoToolTip';
+import { generateId } from '../../utils/utils';
+import { getMovies } from '../../utils/MoviesApi';
 
 function App() {
   const [showHeader, setShowHeader] = useState('');
@@ -33,6 +37,7 @@ function App() {
   const [isEdit, setIsEdit] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({});
+  const [savedMovies, setSavedMovies] = useState([]);
 
   const [infoMessage, setInfoMessage] = useState(null);
 
@@ -45,11 +50,16 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
+      setIsLoading(true);
       getUserInfo()
-        .then((data) => {
-          setCurrentUser(data);
-        })
-        .catch(console.error);
+        .then(setCurrentUser)
+        .catch((err) => console.error(err))
+        .finally(() => setIsLoading(false));
+
+      getSavedMovies()
+        .then(setSavedMovies)
+        .catch((err) => console.error(err))
+        .finally(() => setIsLoading(false));
     }
   }, [loggedIn]);
 
@@ -165,6 +175,7 @@ function App() {
   // movies
   function handleSaveMovie(data) {
     function makeRequest() {
+      console.log(generateId());
       return addMovie(data).then((newMovie) => console.log('newMovie', newMovie.saved));
     }
     handleSubmit(makeRequest, false, 'films');
@@ -221,6 +232,7 @@ function App() {
         loggedIn,
         menuOpen,
         isEdit,
+        savedMovies,
       }}
     >
       <CurrentUserContext.Provider value={currentUser}>

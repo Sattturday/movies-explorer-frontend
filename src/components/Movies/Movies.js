@@ -59,11 +59,14 @@ function Movies({onSaveMovie}) {
       {isContentLoading ? (
         <Preloader />
       ) : (
-        <MoviesCardList
-          moviesMessage={moviesMessage}
-          setMoviesMessage={setMoviesMessage}
-          onSaveMovie={onSaveMovie}
-        />
+        <>
+          <MoviesCardList
+            moviesMessage={moviesMessage}
+            setMoviesMessage={setMoviesMessage}
+            onSaveMovie={onSaveMovie}
+          />
+          <button className="movies__more" type="button">Ещё</button>
+        </>
       )}
     </main>
   );

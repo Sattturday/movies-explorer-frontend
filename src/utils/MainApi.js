@@ -65,7 +65,7 @@ export const setUserInfo = ({ name, email }) => {
 };
 
 // cards
-export const getCards = () => {
+export const getSavedMovies = () => {
   return _request('/movies', {
     credentials: 'include',
   });

@@ -46,7 +46,7 @@ function MoviesCardList({moviesMessage, setMoviesMessage, onSaveMovie}) {
           <ul className="movies__list">
             { movies.map((movie) => (
               <MoviesCard
-                key={movie.created_at}
+                key={movie.cardId}
                 card={movie}
                 isSaved={isSaved}
                 onSaveMovie={onSaveMovie}
@@ -54,8 +54,6 @@ function MoviesCardList({moviesMessage, setMoviesMessage, onSaveMovie}) {
             ))}
           </ul>
         )}
-
-        {/* {!isSaved && (<button className="movies__more" type="button">Ещё</button>)} */}
       </div>
     </section>
   );

@@ -2,7 +2,9 @@ import { convertDuration } from '../../../utils/utils';
 import './MoviesCard.scss';
 
 function MoviesCard({ card, isSaved, onSaveMovie }) {
-  function handleCardSave() {
+  function handleCardSave(e) {
+    e.preventDefault();
+
     onSaveMovie(card);
   }
 

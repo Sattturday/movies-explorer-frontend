@@ -23,11 +23,15 @@ export const performSearch = (searchValue, isShorts, movies) => {
   window.dispatchEvent(storageEvent);
 };
 
+export const generateId = () => {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+};
+
 export const parseMovies = (movies) =>
   movies.map((movie) => {
     const parsedMovie = {
       ...movie,
-      movieId: movie.id,
+      cardId: generateId(),
       saved: false,
       image: movie.image ? BASE_URL_MOVIES + movie.image.url : '',
     };
