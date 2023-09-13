@@ -11,7 +11,6 @@ import {
   logout,
   register,
   addMovie,
-  getCards,
   getSavedMovies,
   deleteMovie,
 } from '../../utils/MainApi';
@@ -25,6 +24,7 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import Layout from '../Layout/Layout';
 import InfoTooltip from '../common/InfoToolTip/InfoToolTip';
+import { postDataLocal } from '../../utils/utils';
 
 function App() {
   const [showHeader, setShowHeader] = useState('');
@@ -57,7 +57,7 @@ function App() {
 
       getSavedMovies()
         .then((res) => {
-          setSavedMovies(res);
+          refreshSavedMovies(res);
         })
         .catch((err) => console.error(err))
         .finally(() => setIsLoading(false));
@@ -163,6 +163,7 @@ function App() {
           localStorage.removeItem('beatMovies');
           localStorage.removeItem('searchedMovies');
           localStorage.removeItem('searchedValues');
+          localStorage.removeItem('savedMovies');
           setLoggedIn(false);
           navigate('/');
         } else {
@@ -174,11 +175,17 @@ function App() {
   }
 
   // movies
+  function refreshSavedMovies(movies) {
+    setSavedMovies(movies);
+    postDataLocal('savedMovies', movies);
+  }
+
   function handleSaveMovie(data) {
     function makeRequest() {
       return addMovie(data)
         .then((newMovie) => {
-          setSavedMovies((prevSavedMovies) => [newMovie, ...prevSavedMovies]);
+          const updatedSavedMovies = [newMovie, ...savedMovies];
+          refreshSavedMovies(updatedSavedMovies);
         });
     }
     handleSubmit(makeRequest, false, 'films');
@@ -188,10 +195,9 @@ function App() {
     function makeRequest() {
       return deleteMovie(movieId)
         .then(() => {
-          setSavedMovies((prevSavedMovies) => {
-            const updatedSavedMovies = prevSavedMovies.filter((movie) => movie._id !== movieId);
-            return updatedSavedMovies;
-          });
+          const updatedSavedMovies = savedMovies
+            .filter((movie) => movie._id !== movieId);
+          refreshSavedMovies(updatedSavedMovies);
         });
     }
     handleSubmit(makeRequest, false, 'films');

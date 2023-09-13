@@ -1,23 +1,12 @@
-import { useEffect } from 'react';
-
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.scss';
 
 function MoviesCardList({
   movies,
   moviesMessage,
-  handleStorageChange,
   onSaveMovie,
   onDeleteMovie,
 }) {
-  useEffect(() => {
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
-
   return (
     <section className="movies" aria-label="Список фильмов">
       <div className="wrapper">

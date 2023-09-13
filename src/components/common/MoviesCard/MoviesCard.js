@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+
 import { convertDuration } from '../../../utils/utils';
 import './MoviesCard.scss';
 

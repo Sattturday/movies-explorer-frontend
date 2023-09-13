@@ -1,6 +1,5 @@
 import { BASE_URL_MOVIES } from './config';
 
-// поиск по ключевым словам и переключателю короткометражек
 export const performSearch = (searchValue, isShorts, movies) => {
   const keywords = searchValue.toLowerCase().split(' ');
 
@@ -11,17 +10,20 @@ export const performSearch = (searchValue, isShorts, movies) => {
       return nameRU.includes(keyword) || nameEN.includes(keyword);
     });
 
-    if (isShorts) {
-      return keywordsFound && movie.duration <= 40;
-    }
-
-    return keywordsFound;
+    return keywordsFound && (isShorts ? isShortDuration(movie) : true);
   });
 
+  return searchedMovies;
+};
+
+export const isShortDuration = (movie) => {
+  return movie.duration <= 40;
+};
+
+// сохранение поисковых данных и результатов в лс
+export const saveSearchDataLocal = (searchedMovies, searchValue, isShorts) => {
   postDataLocal('searchedValues', { keywords: searchValue, isShorts: isShorts });
   postDataLocal('searchedMovies', searchedMovies);
-  const storageEvent = new Event('storage');
-  window.dispatchEvent(storageEvent);
 };
 
 // генерируем ID
@@ -40,37 +42,19 @@ const parseMovies = (movies) => {
     };
     delete parsedMovie.id;
     delete parsedMovie.updated_at;
-    console.log(parsedMovie.cardId);
     return parsedMovie;
   });
   return parsedMovies;
 };
-
-// Функция для добавления флага isSaved и movieId
-
-// export const addFlagsAndIds = (movies, savedMovies) => {
-//   return movies.map((movie) => {
-//     const isSaved = savedMovies.some((savedMovie) => savedMovie.nameRU === movie.nameRU);
-
-//     if (isSaved) {
-//       const savedMovie = savedMovies.find((savedMovie) => movie.nameRU === savedMovie.nameRU);
-//       movie.movieId = savedMovie._id;
-//     }
-
-//     return { ...movie, isSaved };
-//   });
-// };
 
 export const toggleFlagsAndId = (movies, savedMovies) => {
   return movies.map((movie) => {
     const savedMovie = savedMovies.find((savedMovie) => movie.nameRU === savedMovie.nameRU);
 
     if (savedMovie) {
-      // Если найдена соответствующая карточка в savedMovies, устанавливаем флаг isSaved в true
       movie._id = savedMovie._id;
       movie.isSaved = true;
     } else {
-      // Если карточка не найдена в savedMovies, устанавливаем флаг isSaved в false
       movie.isSaved = false;
       delete movie._id;
     }

@@ -5,10 +5,9 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.scss';
 import { errors } from '../../../utils/data';
 
-function SearchForm({ onSearch, searchText, isShorts, setIsShorts }) {
+function SearchForm({ onSearch, searchText, isShorts, setIsShorts, hasSubmitted }) {
   const { values, setValues, handleChange } = useFormAndValidation();
   const [errorSearch, setErrorSearch] = useState('');
-  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   useEffect(() => {
     if (searchText) {
@@ -29,7 +28,6 @@ function SearchForm({ onSearch, searchText, isShorts, setIsShorts }) {
       setErrorSearch(errors.films.ERROR_SEARCH_SUBMIT);
     } else {
       setErrorSearch('');
-      setHasSubmitted(true);
       onSearch(values);
     }
   }

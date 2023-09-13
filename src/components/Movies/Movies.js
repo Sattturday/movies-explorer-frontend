@@ -1,19 +1,26 @@
-import SearchForm from '../common/SearchForm/SearchForm';
-import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
 import { useContext, useEffect, useState } from 'react';
 import { getMovies } from '../../utils/MoviesApi';
-import {toggleFlagsAndId, getDataLocal, performSearch, postDataLocal, processMovies } from '../../utils/utils';
+import SearchForm from '../common/SearchForm/SearchForm';
+import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
 import Preloader from '../common/Preloader/Preloader';
 import { errors } from '../../utils/data';
 import { AppContext } from '../../contexts/AppContext';
+import {
+  toggleFlagsAndId,
+  getDataLocal,
+  performSearch,
+  postDataLocal,
+  processMovies,
+  saveSearchDataLocal,
+} from '../../utils/utils';
 
 function Movies({onSaveMovie, onDeleteMovie}) {
-  const [sourceMovies, setSourceMovies] = useState([]); // храним сотню для поиска
   const [isShorts, setIsShorts] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [isContentLoading, setIsContentLoading] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [moviesMessage, setMoviesMessage] = useState('');
-  const [movies, setMovies] = useState([]); // рез-т поиска из лс
+  const [movies, setMovies] = useState([]); // результат поиска из лс
 
   const {savedMovies} = useContext(AppContext);
 
@@ -22,11 +29,6 @@ function Movies({onSaveMovie, onDeleteMovie}) {
     const savedValues = getDataLocal('searchedValues');
     setSearchText(savedValues?.keywords || '');
     setIsShorts(savedValues?.isShorts || false);
-
-    const beatMovies = getDataLocal('beatMovies');
-    if (beatMovies && beatMovies.length > 0) {
-      setSourceMovies(beatMovies);
-    }
   }, []);
 
   // обновляем 100 при изменении savedMovies
@@ -35,20 +37,23 @@ function Movies({onSaveMovie, onDeleteMovie}) {
     if (beatMovies && beatMovies.length > 0) {
       const updatedMovies = toggleFlagsAndId(beatMovies, savedMovies);
       postDataLocal('beatMovies', updatedMovies);
-      setSourceMovies(updatedMovies);
     }
   }, [savedMovies]);
 
   // поиск при изменении searchText и isShorts
   useEffect(() => {
-    if (searchText && sourceMovies.length === 0) {
+    const beatMovies = getDataLocal('beatMovies');
+
+    if (searchText && !beatMovies) {
       setIsContentLoading(true);
       Promise.all([getMovies()])
-        .then(([beatMovies]) => {
-          const enrichedMovies = processMovies(beatMovies, savedMovies);
-          setSourceMovies(enrichedMovies);
+        .then(([movies]) => {
+          const enrichedMovies = processMovies(movies, savedMovies);
           postDataLocal('beatMovies', enrichedMovies);
-          performSearch(searchText, isShorts, enrichedMovies);
+          const searchedMovies = performSearch(searchText, isShorts, enrichedMovies);
+          saveSearchDataLocal(searchedMovies, searchText, isShorts);
+          setMovies(searchedMovies);
+          setHasSubmitted(true);
         })
         .catch((err) => {
           console.log(err);
@@ -56,24 +61,17 @@ function Movies({onSaveMovie, onDeleteMovie}) {
         })
         .finally(() => setIsContentLoading(false));
     } else if (searchText) {
-      performSearch(searchText, isShorts, sourceMovies);
+      const searchedMovies = performSearch(searchText, isShorts, beatMovies);
+      saveSearchDataLocal(searchedMovies, searchText, isShorts);
+      setMovies(searchedMovies);
+      setHasSubmitted(true);
     }
-  }, [searchText, isShorts, sourceMovies, savedMovies]);
+  }, [searchText, isShorts, savedMovies]);
 
   // запуск поиска
   const handleSearch = (values) => {
     setSearchText(values.search);
     setMoviesMessage('');
-  };
-
-  // обработка изменений локал 'searchedMovies'
-  const handleStorageChange = () => {
-    const movies = getDataLocal('searchedMovies');
-    setMovies(movies);
-
-    if (movies.length === 0) {
-      setMoviesMessage(errors.films.SEARCH_NOT_FOUND_MESSAGE);
-    }
   };
 
   return (
@@ -83,6 +81,7 @@ function Movies({onSaveMovie, onDeleteMovie}) {
         searchText={searchText}
         isShorts={isShorts}
         setIsShorts={setIsShorts}
+        hasSubmitted={hasSubmitted}
       />
       {isContentLoading ? (
         <Preloader />
@@ -91,7 +90,6 @@ function Movies({onSaveMovie, onDeleteMovie}) {
           <MoviesCardList
             movies={movies}
             moviesMessage={moviesMessage}
-            handleStorageChange={handleStorageChange}
             onSaveMovie={onSaveMovie}
             onDeleteMovie={onDeleteMovie}
           />
