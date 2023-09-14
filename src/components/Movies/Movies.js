@@ -43,12 +43,9 @@ function Movies({onSaveMovie, onDeleteMovie}) {
       setWindowWidth(window.innerWidth);
       setVisibleMovies(getVisibleMoviesCount(window.innerWidth));
       setLoadMoreCount(getLoadMoreCount(window.innerWidth));
-      console.log('handleResize');
     };
 
     const throttleHandleResize = throttle(handleResize, 1000);
-
-    console.log(windowWidth, visibleMovies, loadMoreCount);
 
     window.addEventListener('resize', throttleHandleResize);
 
@@ -57,8 +54,10 @@ function Movies({onSaveMovie, onDeleteMovie}) {
     };
   }, []);
 
+  // определяем количество отображаемых фильмов
   const visibleMovieList = movies.slice(0, visibleMovies);
 
+  // при нажатии кнопки Ещё
   const loadMore = () => {
     setVisibleMovies((prev) => prev + loadMoreCount);
   };

@@ -13,7 +13,7 @@ function SearchForm({ onSearch, searchText, isShorts, setIsShorts, hasSubmitted 
     if (searchText) {
       setValues({search: searchText});
     }
-  }, [searchText]);
+  }, [searchText, setValues]);
 
   useEffect(() => {
     if (hasSubmitted ) {
