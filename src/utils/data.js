@@ -31,3 +31,25 @@ export const errors = {
     BAD_ID_MESSAGE: 'Фильм с таким id уже есть в базе',
   },
 };
+
+export const moreCards = {
+  large: {
+    width: 1280,
+    cards: 3,
+    rows: 4,
+    more: 1,
+  },
+  medium: {
+    width: 768,
+    cards: 2,
+    rows: 4,
+    more: 1,
+  },
+  small: {
+    width: 320,
+    cards: 1,
+    rows: 5,
+    more: 2,
+  },
+};
+

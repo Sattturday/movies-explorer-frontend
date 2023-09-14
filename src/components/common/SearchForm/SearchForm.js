@@ -16,7 +16,7 @@ function SearchForm({ onSearch, searchText, isShorts, setIsShorts, hasSubmitted 
   }, [searchText]);
 
   useEffect(() => {
-    if (hasSubmitted) {
+    if (hasSubmitted ) {
       onSearch(values);
     }
   }, [isShorts, hasSubmitted]);
@@ -35,7 +35,13 @@ function SearchForm({ onSearch, searchText, isShorts, setIsShorts, hasSubmitted 
   function handleShorts() {
     setIsShorts(!isShorts);
     if (hasSubmitted) {
-      onSearch(values);
+      if (values['search']?.length !== 0) {
+        onSearch(values);
+        setErrorSearch('');
+      } else {
+        setIsShorts(isShorts);
+        setErrorSearch(errors.films.ERROR_SEARCH_SUBMIT);
+      }
     }
   }
 

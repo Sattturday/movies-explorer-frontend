@@ -34,19 +34,11 @@
   @include media-small {
     grid-template-columns: repeat(auto-fit, 33.9rem);
     gap: 4.5rem 3rem;
-
-    > :nth-child(n + 9) {
-      display: none;
-    }
   }
 
   @include media-mobile {
     grid-template-columns: repeat(auto-fit, 30rem);
     gap: 3.7rem;
-
-    > :nth-child(n + 6) {
-      display: none;
-    }
   }
 }
 

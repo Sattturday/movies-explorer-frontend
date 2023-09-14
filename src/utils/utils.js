@@ -1,4 +1,5 @@
 import { BASE_URL_MOVIES } from './config';
+import { moreCards } from './data';
 
 export const performSearch = (searchValue, isShorts, movies) => {
   const keywords = searchValue.toLowerCase().split(' ');
@@ -86,4 +87,40 @@ export const convertDuration = (duration) => {
   const resultDuration = hours ? `${hours}ч ${minutes}м` : `${minutes}мин`;
 
   return resultDuration;
+};
+
+// decorator
+export function throttle(callee, timeout) {
+  let timer = null;
+
+  return function perform(...args) {
+    if (timer) return;
+
+    timer = setTimeout(() => {
+      callee(...args);
+
+      clearTimeout(timer);
+      timer = null;
+    }, timeout);
+  };
+}
+
+export const getVisibleMoviesCount = (width) => {
+  if (width >= moreCards.large.width) {
+    return moreCards.large.rows * moreCards.large.cards;
+  } else if (width >= moreCards.medium.width) {
+    return moreCards.medium.rows * moreCards.medium.cards;
+  } else if (width >= moreCards.small.width) {
+    return moreCards.small.rows * moreCards.small.cards;
+  }
+};
+
+export const getLoadMoreCount = (width) => {
+  if (width >= moreCards.large.width) {
+    return moreCards.large.more * moreCards.large.cards;
+  } else if (width >= moreCards.medium.width) {
+    return moreCards.medium.more * moreCards.medium.cards;
+  } else if (width >= moreCards.small.width) {
+    return moreCards.small.more * moreCards.small.cards;
+  }
 };

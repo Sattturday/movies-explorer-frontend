@@ -12,6 +12,9 @@ import {
   postDataLocal,
   processMovies,
   saveSearchDataLocal,
+  getVisibleMoviesCount,
+  getLoadMoreCount,
+  throttle,
 } from '../../utils/utils';
 
 function Movies({onSaveMovie, onDeleteMovie}) {
@@ -22,14 +25,43 @@ function Movies({onSaveMovie, onDeleteMovie}) {
   const [moviesMessage, setMoviesMessage] = useState('');
   const [movies, setMovies] = useState([]); // результат поиска из лс
 
+  // for resize
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [visibleMovies, setVisibleMovies] = useState(getVisibleMoviesCount(windowWidth));
+  const [loadMoreCount, setLoadMoreCount] = useState(getLoadMoreCount(windowWidth));
+
   const {savedMovies} = useContext(AppContext);
 
-  // проверяем и устанавливаем состояние поиска
   useEffect(() => {
+    // проверяем и устанавливаем состояние поиска
     const savedValues = getDataLocal('searchedValues');
     setSearchText(savedValues?.keywords || '');
     setIsShorts(savedValues?.isShorts || false);
+
+    // for resize
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      setVisibleMovies(getVisibleMoviesCount(window.innerWidth));
+      setLoadMoreCount(getLoadMoreCount(window.innerWidth));
+      console.log('handleResize');
+    };
+
+    const throttleHandleResize = throttle(handleResize, 1000);
+
+    console.log(windowWidth, visibleMovies, loadMoreCount);
+
+    window.addEventListener('resize', throttleHandleResize);
+
+    return () => {
+      window.removeEventListener('resize', throttleHandleResize);
+    };
   }, []);
+
+  const visibleMovieList = movies.slice(0, visibleMovies);
+
+  const loadMore = () => {
+    setVisibleMovies((prev) => prev + loadMoreCount);
+  };
 
   // обновляем 100 при изменении savedMovies
   useEffect(() => {
@@ -50,10 +82,7 @@ function Movies({onSaveMovie, onDeleteMovie}) {
         .then(([movies]) => {
           const enrichedMovies = processMovies(movies, savedMovies);
           postDataLocal('beatMovies', enrichedMovies);
-          const searchedMovies = performSearch(searchText, isShorts, enrichedMovies);
-          saveSearchDataLocal(searchedMovies, searchText, isShorts);
-          setMovies(searchedMovies);
-          setHasSubmitted(true);
+          searchAndSaveMovies(enrichedMovies);
         })
         .catch((err) => {
           console.log(err);
@@ -61,17 +90,28 @@ function Movies({onSaveMovie, onDeleteMovie}) {
         })
         .finally(() => setIsContentLoading(false));
     } else if (searchText) {
-      const searchedMovies = performSearch(searchText, isShorts, beatMovies);
-      saveSearchDataLocal(searchedMovies, searchText, isShorts);
-      setMovies(searchedMovies);
-      setHasSubmitted(true);
+      searchAndSaveMovies(beatMovies);
     }
   }, [searchText, isShorts, savedMovies]);
+
+  // функция поиска и сохранения результатов
+  function searchAndSaveMovies(processMovies) {
+    const searchedMovies = performSearch(searchText, isShorts, processMovies);
+
+    if (searchedMovies.length === 0) {
+      setMoviesMessage(errors.films.SEARCH_NOT_FOUND_MESSAGE);
+    } else {
+      setMoviesMessage('');
+    }
+
+    saveSearchDataLocal(searchedMovies, searchText, isShorts);
+    setMovies(searchedMovies);
+    setHasSubmitted(true);
+  }
 
   // запуск поиска
   const handleSearch = (values) => {
     setSearchText(values.search);
-    setMoviesMessage('');
   };
 
   return (
@@ -88,12 +128,17 @@ function Movies({onSaveMovie, onDeleteMovie}) {
       ) : (
         <>
           <MoviesCardList
-            movies={movies}
+            movies={visibleMovieList}
             moviesMessage={moviesMessage}
             onSaveMovie={onSaveMovie}
             onDeleteMovie={onDeleteMovie}
           />
-          <button className="movies__more" type="button">Ещё</button>
+          {visibleMovieList.length < movies.length && (
+            <button className="movies__more" type="button" onClick={loadMore}>
+              Ещё
+            </button>
+          )}
+
         </>
       )}
     </main>
