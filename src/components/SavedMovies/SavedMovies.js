@@ -1,9 +1,10 @@
+import { useContext, useEffect, useState } from 'react';
+
+import { AppContext } from '../../contexts/AppContext';
+import { performSearch, getDataLocal, isShortDuration } from '../../utils/utils';
+import { errors } from '../../utils/data';
 import SearchForm from '../common/SearchForm/SearchForm';
 import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
-import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../../contexts/AppContext';
-import { getDataLocal, isShortDuration, performSearch } from '../../utils/utils';
-import { errors } from '../../utils/data';
 import Preloader from '../common/Preloader/Preloader';
 
 function SavedMovies({onDeleteMovie}) {

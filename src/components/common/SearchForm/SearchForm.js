@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import { useFormAndValidation } from '../../../hooks/useFormAndValidation';
+import { errors } from '../../../utils/data';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import './SearchForm.scss';
-import { errors } from '../../../utils/data';
 
 function SearchForm({ onSearch, searchText, isShorts, setIsShorts, hasSubmitted }) {
   const { values, setValues, handleChange } = useFormAndValidation();

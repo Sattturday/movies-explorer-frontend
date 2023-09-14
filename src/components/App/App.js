@@ -14,6 +14,7 @@ import {
   getSavedMovies,
   deleteMovie,
 } from '../../utils/MainApi';
+import { postDataLocal } from '../../utils/utils';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -24,7 +25,6 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import Layout from '../Layout/Layout';
 import InfoTooltip from '../common/InfoToolTip/InfoToolTip';
-import { postDataLocal } from '../../utils/utils';
 
 function App() {
   const [showHeader, setShowHeader] = useState('');

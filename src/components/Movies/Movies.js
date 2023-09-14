@@ -1,14 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
+
 import { getMovies } from '../../utils/MoviesApi';
-import SearchForm from '../common/SearchForm/SearchForm';
-import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
 import Preloader from '../common/Preloader/Preloader';
 import { errors } from '../../utils/data';
 import { AppContext } from '../../contexts/AppContext';
 import {
+  performSearch,
   toggleFlagsAndId,
   getDataLocal,
-  performSearch,
   postDataLocal,
   processMovies,
   saveSearchDataLocal,
@@ -16,6 +15,8 @@ import {
   getLoadMoreCount,
   throttle,
 } from '../../utils/utils';
+import SearchForm from '../common/SearchForm/SearchForm';
+import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
 
 function Movies({onSaveMovie, onDeleteMovie}) {
   const [isShorts, setIsShorts] = useState(false);
@@ -23,7 +24,7 @@ function Movies({onSaveMovie, onDeleteMovie}) {
   const [isContentLoading, setIsContentLoading] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [moviesMessage, setMoviesMessage] = useState('');
-  const [movies, setMovies] = useState([]); // результат поиска из лс
+  const [movies, setMovies] = useState([]);
 
   // for resize
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

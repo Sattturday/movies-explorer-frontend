@@ -1,6 +1,7 @@
 import { BASE_URL_MOVIES } from './config';
 import { moreCards } from './data';
 
+// search
 export const performSearch = (searchValue, isShorts, movies) => {
   const keywords = searchValue.toLowerCase().split(' ');
 
@@ -17,6 +18,7 @@ export const performSearch = (searchValue, isShorts, movies) => {
   return searchedMovies;
 };
 
+// isShort
 export const isShortDuration = (movie) => {
   return movie.duration <= 40;
 };
