@@ -4,14 +4,5 @@
 
 Выбранный макет - Dark-2
 
-### Примененные знания
-
-- Sass
-- React
-- React Router Dom
-
-### Запуск приложения
-
-`npm install`
-
-`npm start`
+[ссылка на пул реквест](https://github.com/Sattturday/movies-explorer-frontend/pull/2)
+[ссылка на деплой](https://moviesteka.nomoreparties.co/movies)
