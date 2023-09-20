@@ -27,18 +27,17 @@ import Layout from '../Layout/Layout';
 import InfoTooltip from '../common/InfoToolTip/InfoToolTip';
 
 function App() {
-  const [showHeader, setShowHeader] = useState('');
-  const [showFooter, setShowFooter] = useState('');
-
+  const [showHeader, setShowHeader] = useState(false);
+  const [showFooter, setShowFooter] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
+  // const [isEdit, setIsEdit] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
 
-  const [infoMessage, setInfoMessage] = useState(null);
+  const [infoMessage, setInfoMessage] = useState('');
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,11 +49,6 @@ function App() {
   useEffect(() => {
     if (loggedIn) {
       setIsLoading(true);
-      getUserInfo()
-        .then(setCurrentUser)
-        .catch((err) => console.error(err))
-        .finally(() => setIsLoading(false));
-
       getSavedMovies()
         .then((res) => {
           refreshSavedMovies(res);
@@ -89,9 +83,9 @@ function App() {
     setMenuOpen(!menuOpen);
   }
 
-  function handleEditProfile() {
-    setIsEdit(true);
-  }
+  // function handleEditProfile() {
+  //   setIsEdit(true);
+  // }
 
   function closeAllPopups() {
     setInfoMessage(null);
@@ -113,7 +107,8 @@ function App() {
       return login(values).then((data) => {
         if (data._id) {
           localStorage.setItem('userId', data._id);
-          setLoggedIn(true);
+          // setLoggedIn(true);
+          tokenCheck();
           navigate('/movies');
           return data;
         } else {
@@ -129,14 +124,16 @@ function App() {
     const path = location.pathname;
 
     function makeRequest() {
-      return getUserInfo().then(() => {
-        setLoggedIn(true);
-        if (path === '/signin' || path === '/signup') {
-          navigate('/movies');
-        } else {
-          navigate(path);
-        }
-      });
+      return getUserInfo()
+        .then(setCurrentUser)
+        .then(() => {
+          setLoggedIn(true);
+          if (path === '/signin' || path === '/signup') {
+            navigate('/movies');
+          } else {
+            navigate(path);
+          }
+        });
     }
 
     if (userId) {
@@ -148,7 +145,7 @@ function App() {
     function makeRequest() {
       return setUserInfo(data).then((data) => {
         setCurrentUser(data);
-        setIsEdit(false);
+        // setIsEdit(false);
       }
       );
     }
@@ -253,7 +250,7 @@ function App() {
         closeAllPopups,
         loggedIn,
         menuOpen,
-        isEdit,
+        // isEdit,
         savedMovies,
       }}
     >
@@ -284,15 +281,15 @@ function App() {
                 loggedIn={loggedIn}
                 infoMessage={infoMessage}
                 onUpdateUser={handleUpdateUser}
-                onEditProfile={handleEditProfile}
+                //     onEditProfile={handleEditProfile}
                 onLogout={handleLogout}
               />
             }
             />
             <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
             <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
-            <Route path="*" element={<NotFound />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <InfoTooltip message={infoMessage} />
       </CurrentUserContext.Provider>

@@ -15,17 +15,14 @@ function NotFound() {
             <p className="not-found__subtitle">Страница не найдена</p>
           </div>
           <button
-            className="not-found__button"
-            type="button"
+            className="not-found__link"
             onClick={() => navigate(-1)}
           >
             Назад
           </button>
         </div>
-
       </section>
     </main>
-
   );
 }
 

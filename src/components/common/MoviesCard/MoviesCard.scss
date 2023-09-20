@@ -38,8 +38,12 @@
     font-weight: 400;
     line-height: 0.9;
     background-color: $color-dark-xs;
-    opacity: 0;
+    opacity: 1;
     @extend %transition-all;
+
+    @include media-hover {
+      opacity: 0;
+    }
   }
 
   &_type_unsaved {
@@ -53,8 +57,12 @@
 
   &_type_delete {
     background-image: url(../../../images/icon/delete.svg);
-    opacity: 0;
+    opacity: 1;
     @extend %transition-all;
+
+    @include media-hover {
+      opacity: 0;
+    }
   }
 
   @include media-mobile {

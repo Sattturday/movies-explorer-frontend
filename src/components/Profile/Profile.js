@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 
 import { AppContext } from '../../contexts/AppContext';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -10,10 +10,16 @@ import Input from '../common/Input/Input';
 import './Profile.scss';
 
 function Profile({ onEditProfile, onUpdateUser, onLogout }) {
+  const [isEdit, setIsEdit] = useState(false);
+
   const { values, setValues, handleChange, errors, isValid, setIsValid, resetForm } =
     useFormAndValidation();
   const app = useContext(AppContext);
   const currentUser = useContext(CurrentUserContext);
+
+  function handleEditProfile() {
+    setIsEdit(true);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -41,7 +47,7 @@ function Profile({ onEditProfile, onUpdateUser, onLogout }) {
       <main>
         <section className="profile">
           <h1 className="profile__title">Привет, {currentUser.name}!</h1>
-          {!app.isEdit ? (
+          {!isEdit ? (
             <div className="profile__container">
               <ul className="profile__info-list">
                 <li className="profile__info-item underline">
@@ -59,7 +65,7 @@ function Profile({ onEditProfile, onUpdateUser, onLogout }) {
                     <button
                       className="profile__button"
                       type="button"
-                      onClick={onEditProfile}
+                      onClick={handleEditProfile}
                     >
                     Редактировать
                     </button>
