@@ -14,7 +14,7 @@ import {
   getSavedMovies,
   deleteMovie,
 } from '../../utils/MainApi';
-import { postDataLocal } from '../../utils/utils';
+import { getDataLocal, postDataLocal } from '../../utils/utils';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -32,7 +32,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  // const [isEdit, setIsEdit] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
@@ -83,12 +82,40 @@ function App() {
     setMenuOpen(!menuOpen);
   }
 
-  // function handleEditProfile() {
-  //   setIsEdit(true);
-  // }
-
   function closeAllPopups() {
     setInfoMessage(null);
+  }
+
+  // movies
+  function refreshSavedMovies(movies) {
+    setSavedMovies(movies);
+    postDataLocal('savedMovies', movies);
+  }
+
+  function handleSaveMovie(data) {
+    addMovie(data)
+      .then((newMovie) => {
+        const updatedSavedMovies = [newMovie, ...savedMovies];
+        refreshSavedMovies(updatedSavedMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+        handleError(err, 'films');
+      });
+  }
+
+  function handleDeleteMovie(movieId) {
+    deleteMovie(movieId)
+      .then(() => {
+        const savedMovies = getDataLocal('savedMovies');
+        const updatedSavedMovies = savedMovies
+          .filter((movie) => movie._id !== movieId);
+        refreshSavedMovies(updatedSavedMovies);
+      })
+      .catch((err) => {
+        console.log(err);
+        handleError(err, 'films');
+      });
   }
 
   // users
@@ -107,7 +134,6 @@ function App() {
       return login(values).then((data) => {
         if (data._id) {
           localStorage.setItem('userId', data._id);
-          // setLoggedIn(true);
           tokenCheck();
           navigate('/movies');
           return data;
@@ -145,7 +171,6 @@ function App() {
     function makeRequest() {
       return setUserInfo(data).then((data) => {
         setCurrentUser(data);
-        // setIsEdit(false);
       }
       );
     }
@@ -169,35 +194,6 @@ function App() {
       });
     }
     handleSubmit(makeRequest, false, 'common');
-  }
-
-  // movies
-  function refreshSavedMovies(movies) {
-    setSavedMovies(movies);
-    postDataLocal('savedMovies', movies);
-  }
-
-  function handleSaveMovie(data) {
-    function makeRequest() {
-      return addMovie(data)
-        .then((newMovie) => {
-          const updatedSavedMovies = [newMovie, ...savedMovies];
-          refreshSavedMovies(updatedSavedMovies);
-        });
-    }
-    handleSubmit(makeRequest, false, 'films');
-  }
-
-  function handleDeleteMovie(movieId) {
-    function makeRequest() {
-      return deleteMovie(movieId)
-        .then(() => {
-          const updatedSavedMovies = savedMovies
-            .filter((movie) => movie._id !== movieId);
-          refreshSavedMovies(updatedSavedMovies);
-        });
-    }
-    handleSubmit(makeRequest, false, 'films');
   }
 
   // отправка запросов
@@ -250,8 +246,6 @@ function App() {
         closeAllPopups,
         loggedIn,
         menuOpen,
-        // isEdit,
-        savedMovies,
       }}
     >
       <CurrentUserContext.Provider value={currentUser}>
@@ -262,6 +256,7 @@ function App() {
               <ProtectedRoute
                 element={Movies}
                 loggedIn={loggedIn}
+                savedMovies={savedMovies}
                 onSaveMovie={handleSaveMovie}
                 onDeleteMovie={handleDeleteMovie}
               />
@@ -271,6 +266,7 @@ function App() {
               <ProtectedRoute
                 element={SavedMovies}
                 loggedIn={loggedIn}
+                savedMovies={savedMovies}
                 onDeleteMovie={handleDeleteMovie}
               />
             }
@@ -281,7 +277,6 @@ function App() {
                 loggedIn={loggedIn}
                 infoMessage={infoMessage}
                 onUpdateUser={handleUpdateUser}
-                //     onEditProfile={handleEditProfile}
                 onLogout={handleLogout}
               />
             }

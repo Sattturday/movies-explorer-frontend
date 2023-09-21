@@ -1,3 +1,4 @@
+
 import { useContext, useEffect, useState } from 'react';
 
 import { getMovies } from '../../utils/MoviesApi';
@@ -18,20 +19,20 @@ import {
 import SearchForm from '../common/SearchForm/SearchForm';
 import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
 
-function Movies({onSaveMovie, onDeleteMovie}) {
+function Movies({ savedMovies, onSaveMovie, onDeleteMovie }) {
   const [isShorts, setIsShorts] = useState(false);
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [isContentLoading, setIsContentLoading] = useState(false);
+
   const [searchText, setSearchText] = useState('');
   const [moviesMessage, setMoviesMessage] = useState('');
+
   const [movies, setMovies] = useState([]);
 
   // for resize
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [visibleMovies, setVisibleMovies] = useState(getVisibleMoviesCount(windowWidth));
   const [loadMoreCount, setLoadMoreCount] = useState(getLoadMoreCount(windowWidth));
-
-  const {savedMovies} = useContext(AppContext);
 
   useEffect(() => {
     // проверяем и устанавливаем состояние поиска
@@ -66,6 +67,7 @@ function Movies({onSaveMovie, onDeleteMovie}) {
   // обновляем 100 при изменении savedMovies
   useEffect(() => {
     const beatMovies = getDataLocal('beatMovies');
+
     if (beatMovies && beatMovies.length > 0) {
       const updatedMovies = toggleFlagsAndId(beatMovies, savedMovies);
       postDataLocal('beatMovies', updatedMovies);
@@ -112,6 +114,7 @@ function Movies({onSaveMovie, onDeleteMovie}) {
   // запуск поиска
   const handleSearch = (values) => {
     setSearchText(values.search);
+    setMoviesMessage('');
   };
 
   return (

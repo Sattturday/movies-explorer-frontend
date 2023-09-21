@@ -1,3 +1,4 @@
+
 import { useLocation } from 'react-router-dom';
 
 import { convertDuration } from '../../../utils/utils';
@@ -15,6 +16,7 @@ function MoviesCard({ card, onSaveMovie, onDeleteMovie }) {
 
   function handleCardDelete(e) {
     e.preventDefault();
+
     onDeleteMovie(card._id);
   }
 

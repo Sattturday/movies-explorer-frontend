@@ -1,20 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { AppContext } from '../../contexts/AppContext';
 import { performSearch, getDataLocal, isShortDuration } from '../../utils/utils';
 import { errors } from '../../utils/data';
 import SearchForm from '../common/SearchForm/SearchForm';
 import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
 import Preloader from '../common/Preloader/Preloader';
 
-function SavedMovies({onDeleteMovie}) {
+function SavedMovies({savedMovies, onDeleteMovie}) {
   const [isShorts, setIsShorts] = useState(false);
-  const [searchText, setSearchText] = useState('');
-  const [moviesMessage, setMoviesMessage] = useState('');
-  const [movies, setMovies] = useState([]);
   const [isContentLoading, setIsContentLoading] = useState(true);
 
-  const {savedMovies} = useContext(AppContext);
+  const [searchText, setSearchText] = useState('');
+  const [moviesMessage, setMoviesMessage] = useState('');
+
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     if (savedMovies.length !== 0) {
@@ -23,7 +22,7 @@ function SavedMovies({onDeleteMovie}) {
       setMovies(getDataLocal('savedMovies'));
     }
     setIsContentLoading(false);
-  }, []);
+  }, [savedMovies]);
 
   const handleSearch = (values) => {
     setSearchText(values.search);
