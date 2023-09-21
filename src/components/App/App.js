@@ -46,6 +46,8 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const savedMovies = getDataLocal('savedMovies');
+    console.log(savedMovies);
     if (loggedIn) {
       setIsLoading(true);
       getSavedMovies()
@@ -83,7 +85,7 @@ function App() {
   }
 
   function closeAllPopups() {
-    setInfoMessage(null);
+    setInfoMessage('');
   }
 
   // movies
@@ -152,6 +154,7 @@ function App() {
     function makeRequest() {
       return getUserInfo()
         .then(setCurrentUser)
+        .then()
         .then(() => {
           setLoggedIn(true);
           if (path === '/signin' || path === '/signup') {

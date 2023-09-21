@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './NotFound.scss';
+import { AppContext } from '../../contexts/AppContext';
 
 function NotFound() {
   const navigate = useNavigate();
+  const {loggedIn} = useContext(AppContext);
+
+  const handleGoBack = () => {
+    if (loggedIn) {
+      navigate(-2);
+    } else {
+      navigate(-1);
+    }
+  };
 
   return (
     <main>
@@ -16,7 +26,7 @@ function NotFound() {
           </div>
           <button
             className="not-found__link"
-            onClick={() => navigate(-1)}
+            onClick={handleGoBack}
           >
             Назад
           </button>

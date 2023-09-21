@@ -1,10 +1,8 @@
-
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { getMovies } from '../../utils/MoviesApi';
 import Preloader from '../common/Preloader/Preloader';
 import { errors } from '../../utils/data';
-import { AppContext } from '../../contexts/AppContext';
 import {
   performSearch,
   toggleFlagsAndId,
