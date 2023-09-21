@@ -46,8 +46,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const savedMovies = getDataLocal('savedMovies');
-    console.log(savedMovies);
     if (loggedIn) {
       setIsLoading(true);
       getSavedMovies()
