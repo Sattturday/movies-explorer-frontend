@@ -17,6 +17,12 @@
   }
 }
 
+@mixin media-hover {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
 // section padding
 @mixin padding($padding-start) {
   padding-top: $padding-start;

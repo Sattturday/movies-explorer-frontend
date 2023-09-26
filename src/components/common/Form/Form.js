@@ -18,7 +18,7 @@ const Form = ({
     >
       {children}
       <button
-        className={`form__submit form__submit_type_${name} ${
+        className={`form__submit form__submit_type_${name}${
           (!isValid && ' form__submit_disabled') || ''
         }`}
         type="submit"

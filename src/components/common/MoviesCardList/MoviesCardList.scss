@@ -10,6 +10,20 @@
   }
 }
 
+.movies__message {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.8px;
+  text-align: center;
+
+  @include media-mobile {
+    font-size: 1.8rem;
+    letter-spacing: -0.72px;
+  }
+}
+
 .movies__list {
   @include list;
   display: grid;
@@ -20,19 +34,11 @@
   @include media-small {
     grid-template-columns: repeat(auto-fit, 33.9rem);
     gap: 4.5rem 3rem;
-
-    > :nth-child(n + 9) {
-      display: none;
-    }
   }
 
   @include media-mobile {
     grid-template-columns: repeat(auto-fit, 30rem);
     gap: 3.7rem;
-
-    > :nth-child(n + 6) {
-      display: none;
-    }
   }
 }
 

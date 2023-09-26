@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import './Header.scss';
-import Navigation from '../Navigation/Navigation';
 import { AppContext } from '../../../contexts/AppContext';
+import Navigation from '../Navigation/Navigation';
+import './Header.scss';
 
 function Header({onBurgerClick}) {
   const app = useContext(AppContext);

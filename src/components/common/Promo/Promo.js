@@ -1,5 +1,5 @@
-import './Promo.scss';
 import NavTab from '../NavTab/NavTab';
+import './Promo.scss';
 
 function Promo() {
   return (

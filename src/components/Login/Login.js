@@ -3,13 +3,14 @@ import { useEffect, useContext } from 'react';
 
 import { AppContext } from '../../contexts/AppContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import { emailRegex } from '../../utils/data';
 import Form from '../common/Form/Form';
 import Input from '../common/Input/Input';
 import './Login.scss';
 
 function Login({ handleLogin }) {
   const { values, handleChange, errors, isValid, resetForm } =
-    useFormAndValidation();
+    useFormAndValidation('login');
   const app = useContext(AppContext);
 
   function handleSubmit(e) {
@@ -43,6 +44,7 @@ function Login({ handleLogin }) {
             errors={errors}
             values={values}
             handleChange={handleChange}
+            pattern={emailRegex.source}
           />
           <Input
             name="password"
@@ -60,7 +62,6 @@ function Login({ handleLogin }) {
         </p>
       </section>
     </main>
-
   );
 }
 
